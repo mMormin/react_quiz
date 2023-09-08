@@ -1,0 +1,14 @@
+{
+  "name": "oquiz",
+  "version": "1.0.0",
+  "description": "Pour commencer, il faut mettre en place la base de données !",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.3.1"
+  }
+}
