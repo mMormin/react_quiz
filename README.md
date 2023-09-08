@@ -47,21 +47,8 @@ class CoreModel {
 
 </details>
 
-
-----------------------------------------------------
-
-
-# oQuiz - challenge jour 1
-
-En utilisant l'analyse préliminaire de la BDD, le MCD, et les fiches récap, écrire le MLD de l'application.
-
-## Bonus
-
-Écrire le fichier SQL pour créer les tables listées dans le MLD.
-
-
 Fiches récap :
 
-MCD : https://kourou.oclock.io/ressources/fiche-recap/mcd-modele-conceptuel-de-donnees/
+[Les objets en JS](https://kourou.oclock.io/ressources/fiche-recap/les-objets-en-js/)
 
-MLD : https://kourou.oclock.io/ressources/fiche-recap/mld/
+[Ton meilleur ami : THIS](https://kourou.oclock.io/ressources/fiche-recap/this/)
