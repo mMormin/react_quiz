@@ -5,11 +5,11 @@ class Quiz extends CoreModel {
   _description;
   _userId;
 
-  constructor(idParam, titleParam, descriptionParam, userIdParam) {
-    super(idParam);
-    this.title = titleParam;
-    this.description = descriptionParam;
-    this.userId = userIdParam;
+  constructor(obj) {
+    super(obj);
+    this.title = obj.title;
+    this.description = obj.description;
+    this.userId = obj.userId;
   }
 
   set title(value) {
@@ -20,7 +20,6 @@ class Quiz extends CoreModel {
 
     this._title = value;
   }
-
   get title() {
     return this._title;
   }
@@ -33,7 +32,6 @@ class Quiz extends CoreModel {
 
     this._description = value;
   }
-
   get description() {
     return this._description;
   }
@@ -45,7 +43,6 @@ class Quiz extends CoreModel {
       );
     this._userId = value;
   }
-
   get userId() {
     return this._userId;
   }

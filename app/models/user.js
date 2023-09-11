@@ -6,18 +6,12 @@ class User extends CoreModel {
   _email;
   _password;
 
-  constructor(
-    idParam,
-    firstnameParam,
-    lastnameParam,
-    emailParam,
-    passwordParam
-  ) {
-    super(idParam);
-    this.firstname = firstnameParam;
-    this.lastname = lastnameParam;
-    this.email = emailParam;
-    this.password = passwordParam;
+  constructor(obj) {
+    super(obj);
+    this.firstname = obj.firstname;
+    this.lastname = obj.lastname;
+    this.email = obj.email;
+    this.password = obj.password;
   }
 
   set firstname(value) {
@@ -28,7 +22,6 @@ class User extends CoreModel {
 
     this._firstname = value;
   }
-
   get firstname() {
     return this._firstname;
   }
@@ -41,7 +34,6 @@ class User extends CoreModel {
 
     this._lastname = value;
   }
-
   get lastname() {
     return this._lastname;
   }
@@ -63,7 +55,6 @@ class User extends CoreModel {
 
     this._email = value;
   }
-
   get email() {
     return this._email;
   }
@@ -76,7 +67,6 @@ class User extends CoreModel {
 
     this._password = value;
   }
-
   get password() {
     return this._password;
   }

@@ -3,9 +3,9 @@ const CoreModel = require("./core/coreModel");
 class Tag extends CoreModel {
   _name;
 
-  constructor(idParam, nameParam) {
-    super(idParam);
-    this.name = nameParam;
+  constructor(obj) {
+    super(obj);
+    this.name = obj.name;
   }
 
   set name(value) {
@@ -16,7 +16,6 @@ class Tag extends CoreModel {
 
     this._name = value;
   }
-
   get name() {
     return this._name;
   }

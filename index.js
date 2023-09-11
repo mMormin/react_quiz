@@ -1,8 +1,15 @@
-
 require("dotenv").config();
 require("./app/db.js");
 
+/*
 // Check the classes
-// const User = require("./app/models/user.js");
-// const user = new User(1, "Maxime", "MB", "maxime@mormin.boudot", "regardepasstpchapochapo");
-// console.log(user);
+const User = require("./app/models/user.js");
+const user = new User({
+//   id: 420, // Si non fourni : undefined = A_I, si fourni : ajout, si 0 ou egal à existant : New Error
+  firstname: "Maxime",
+  lastname: "MB",
+  email: "maxime@mormin.boudot",
+  lastname: "regardepasstpchapochapo",
+});
+console.log(user);
+*/

@@ -4,10 +4,10 @@ class Answer extends CoreModel {
   _text;
   _questionId;
 
-  constructor(idParam, textParam, questionIdParam) {
-    super(idParam);
-    this.text = textParam;
-    this.questionId = questionIdParam;
+  constructor(obj) {
+    super(obj);
+    this.text = obj.text;
+    this.questionId = obj.questionId;
   }
 
   set text(value) {
@@ -30,7 +30,6 @@ class Answer extends CoreModel {
 
     this._questionId = value;
   }
-
   get questionId() {
     return this._questionId;
   }

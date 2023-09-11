@@ -2,9 +2,9 @@ class Quiz_has_tag {
   _quizId;
   _tagId;
 
-  constructor(quizIdParam, tagIdParam) {
-    this.quizId = quizIdParam;
-    this.tagId = tagIdParam;
+  constructor(obj) {
+    this.quizId = obj.quizIdobj;
+    this.tagId = obj.tagId;
   }
 
   set quizId(value) {
@@ -15,7 +15,6 @@ class Quiz_has_tag {
 
     this._quizId = value;
   }
-
   get quizId() {
     return this._quizId;
   }
@@ -28,11 +27,9 @@ class Quiz_has_tag {
 
     this._tagId = value;
   }
-
   get tagId() {
     return this._tagId;
   }
-
 }
 
 module.exports = Quiz_has_tag;

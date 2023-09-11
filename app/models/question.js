@@ -7,20 +7,13 @@ class Question extends CoreModel {
   _quizId;
   _answerId;
 
-  constructor(
-    idParam,
-    textParam,
-    tipParam,
-    levelIdParam,
-    quizIdParam,
-    answerIdParam
-  ) {
-    super(idParam);
-    this.text = textParam;
-    this.tip = tipParam;
-    this.levelId = levelIdParam;
-    this.quizId = quizIdParam;
-    this.answerId = answerIdParam;
+  constructor(obj) {
+    super(obj);
+    this.text = obj.text;
+    this.tip = obj.tip;
+    this.levelId = obj.levelId;
+    this.quizId = obj.quizId;
+    this.answerId = obj.answerId;
   }
 
   set text(value) {
@@ -43,7 +36,6 @@ class Question extends CoreModel {
 
     this._tip = value;
   }
-
   get tip() {
     return this._tip;
   }
@@ -56,7 +48,6 @@ class Question extends CoreModel {
 
     this._levelId = value;
   }
-
   get levelId() {
     return this._levelId;
   }
@@ -69,7 +60,6 @@ class Question extends CoreModel {
 
     this._quizId = value;
   }
-
   get quizId() {
     return this._quizId;
   }
@@ -82,7 +72,6 @@ class Question extends CoreModel {
 
     this._answerId = value;
   }
-
   get answerId() {
     return this._answerId;
   }

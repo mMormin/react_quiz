@@ -3,9 +3,9 @@ const CoreModel = require("./core/coreModel");
 class Level extends CoreModel {
   _name;
 
-  constructor(idParam, namaParam) {
-    super(idParam);
-    this.name = namaParam;
+  constructor(obj) {
+    super(obj);
+    this.name = obj.name;
   }
 
   set name(value) {
@@ -16,7 +16,6 @@ class Level extends CoreModel {
 
     this._name = value;
   }
-
   get name() {
     return this._name;
   }
