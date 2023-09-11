@@ -7,7 +7,8 @@ Oriented object programmation project with MVC arch and some node packages.
 - [postgres](https://www.npmjs.com/package/pg)
 - [sequelize](https://www.npmjs.com/package/sequelize)
 <br/>
- 
+<br/>
+
 ## Project History
 1. [Init & Architecture deployment](https://github.com/O-clock-Cheesecake/oQuiz-mMormin/commit/db948a63ad50190e960bf13e40bf20ecde342a48)
 2. Local database creation (+ tables and datas imports)
@@ -17,7 +18,7 @@ Oriented object programmation project with MVC arch and some node packages.
 6. (WIP) CRUD
 <br/>
 
-# Hotlinks
+## Hotlinks
 *Les objets en JS* : https://kourou.oclock.io/ressources/fiche-recap/les-objets-en-js/
 
 *Ton meilleur ami* :
