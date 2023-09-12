@@ -5,7 +5,12 @@ class Level extends Model {}
 
 Level.init(
   {
-    name: DataTypes.STRING,
+    name: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: true,
+      },
+    },
   },
   {
     sequelize: dbInstance,

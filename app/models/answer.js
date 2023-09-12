@@ -5,7 +5,12 @@ class Answer extends Model {}
 
 Answer.init(
   {
-    text: DataTypes.STRING,
+    text: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: true,
+      },
+    },
     questionId: DataTypes.INTEGER,
   },
   {

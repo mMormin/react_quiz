@@ -1,4 +1,4 @@
-const dotenv = require("dotenv");
+require("dotenv").config();
 const sequelize = require("./app/db.js");
 /*
 const Answer = require("./app/models/answer");
@@ -10,19 +10,31 @@ const Tag = require("./app/models/tag");
 const User = require("./app/models/user");
 */
 
-dotenv.config();
 const dbConnexionCheck = async () => {
   try {
     await sequelize.authenticate();
     console.log("🗃️  Database connection ✅");
   } catch (error) {
-    console.error("🗃️  Database connection ❌ :", error);
+    console.error("🗃️  Database connexion ❌ :", error);
   }
 };
 dbConnexionCheck();
 
-// Check the classes
 /*
+// To force tables creation
+const tablesCreation = async () => {
+  try {
+    await sequelize.sync({ force: true });
+    console.log("🗃️  Models synchronization ✅");
+  } catch (error) {
+    console.error("🗃️  Models synchronization ❌ :", error);
+  }
+};
+tablesCreation();
+/*
+
+/*
+// To check Models (require the associated Model)
 const userCheck = async () => {
   const newUser = await User.create({
     // id: 420, // Si non fourni : undefined = A_I, si fourni : ajout, si 0 ou egal à existant : New Error

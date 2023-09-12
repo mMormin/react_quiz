@@ -5,7 +5,12 @@ class Quiz extends Model {}
 
 Quiz.init(
   {
-    title: DataTypes.STRING,
+    title: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: true,
+      },
+    },
     description: DataTypes.STRING,
     userId: DataTypes.INTEGER,
   },

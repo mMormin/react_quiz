@@ -5,10 +5,37 @@ class User extends Model {}
 
 User.init(
   {
-    firstname: DataTypes.STRING,
-    lastname: DataTypes.STRING,
-    password: DataTypes.STRING,
-    email: DataTypes.STRING,
+    firstname: {
+      type: DataTypes.STRING,
+      defaultValue: `Michelle#${Math.floor(Math.random() * 100)}`,
+    },
+    lastname: {
+      type: DataTypes.STRING,
+      defaultValue: "[ADMIN]",
+    },
+    password: {
+      type: DataTypes.STRING,
+      validate: {
+        is: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^*-]).{8,}$/i, // 8 chars containing at least 1 uppC && 1 lowC && 1 spec from (#?!@$%^*-) && 1 digit
+      },
+    },
+    email: {
+      type: DataTypes.STRING,
+      validate: {
+        isEmail: true,
+      },
+    },
+    hoodyFullname: {
+      type: DataTypes.VIRTUAL,
+      get() {
+        return `${this.firstname} ${this.lastname}`;
+      },
+      set(value) {
+        throw new Error(
+          "Error while the creation of _hoodyFullname under the hood."
+        );
+      },
+    },
   },
   {
     sequelize: dbInstance,
@@ -16,7 +43,5 @@ User.init(
     tableName: "user",
   }
 );
-
-
 
 module.exports = User;

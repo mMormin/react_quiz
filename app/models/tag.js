@@ -5,7 +5,12 @@ class Tag extends Model {}
 
 Tag.init(
   {
-    name: DataTypes.STRING,
+    name: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: true,
+      },
+    },
   },
   {
     sequelize: dbInstance,
