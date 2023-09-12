@@ -1,5 +1,17 @@
 require("dotenv").config();
-require("./app/db.js");
+
+const sequelize = require("./app/db.js");
+
+const connexionCheck = async () => {
+  try {
+    await sequelize.authenticate();
+    console.log("🗃️  Database connection ✅");
+  } catch (error) {
+    console.error("🗃️  Database connection ❌ :", error);
+  }
+};
+
+connexionCheck();
 
 /*
 // Check the classes

@@ -1,7 +1,10 @@
-require("dotenv").config();
+const { Sequelize } = require('sequelize');
 
-const { Client } = require('pg');
-const client = new Client(process.env.DB_URL);
-client.connect().then(console.log("🗃️  Database connection ✅"));
+const dbPlug = new Sequelize({
+    dialect: 'postgres',
+    define: {
+        timestamps: false
+    }
+});
 
-module.exports = client;
+module.exports = dbPlug;
