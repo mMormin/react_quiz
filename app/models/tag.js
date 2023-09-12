@@ -1,24 +1,17 @@
-const CoreModel = require("./core/coreModel");
+const dbInstance = require("../db.js");
+const { Model, DataTypes } = require("sequelize");
 
-class Tag extends CoreModel {
-  _name;
+class Tag extends Model {}
 
-  constructor(obj) {
-    super(obj);
-    this.name = obj.name;
+Tag.init(
+  {
+    name: DataTypes.STRING,
+  },
+  {
+    sequelize: dbInstance,
+    modelName: "Tag",
+    tableName: "tag",
   }
-
-  set name(value) {
-    if (!typeof value === "string" || !value instanceof String)
-      throw new Error(
-        `name must to be a String. Received type : "${typeof value}"`
-      );
-
-    this._name = value;
-  }
-  get name() {
-    return this._name;
-  }
-}
+);
 
 module.exports = Tag;

@@ -1,38 +1,18 @@
-const CoreModel = require("./core/coreModel");
+const dbInstance = require("../db.js");
+const { Model, DataTypes } = require("sequelize");
 
-class Answer extends CoreModel {
-  _text;
-  _questionId;
+class Answer extends Model {}
 
-  constructor(obj) {
-    super(obj);
-    this.text = obj.text;
-    this.questionId = obj.questionId;
+Answer.init(
+  {
+    text: DataTypes.STRING,
+    questionId: DataTypes.INTEGER,
+  },
+  {
+    sequelize: dbInstance,
+    modelName: "Answer",
+    tableName: "answer",
   }
-
-  set text(value) {
-    if (!typeof value === "string" || !value instanceof String)
-      throw new Error(
-        `text must to be a String. Received type : "${typeof value}"`
-      );
-
-    this._text = value;
-  }
-  get text() {
-    return this._text;
-  }
-
-  set questionId(value) {
-    if (!Number.isInteger(value) || value < 1)
-      throw new Error(
-        `questionId must be a Number and not 0. Received value : "${value}" wich has type : "${typeof value}"`
-      );
-
-    this._questionId = value;
-  }
-  get questionId() {
-    return this._questionId;
-  }
-}
+);
 
 module.exports = Answer;

@@ -1,35 +1,18 @@
-class Quiz_has_tag {
-  _quizId;
-  _tagId;
+const dbInstance = require("../db.js");
+const { Model, DataTypes } = require("sequelize");
 
-  constructor(obj) {
-    this.quizId = obj.quizIdobj;
-    this.tagId = obj.tagId;
-  }
+class Quiz_has_tag extends Model {}
 
-  set quizId(value) {
-    if (!Number.isInteger(value) || value < 1)
-      throw new Error(
-        `quizId must be a Number and not 0. Received value : "${value}" wich has type : "${typeof value}"`
-      );
-
-    this._quizId = value;
+Quiz_has_tag.init(
+  {
+    quizId: DataTypes.INTEGER,
+    tagId: DataTypes.INTEGER,
+  },
+  {
+    sequelize: dbInstance,
+    modelName: "Quiz_has_tag",
+    tableName: "quiz_has_tag",
   }
-  get quizId() {
-    return this._quizId;
-  }
-
-  set tagId(value) {
-    if (!Number.isInteger(value) || value < 1)
-      throw new Error(
-        `tagId must be a Number and not 0. Received value : "${value}" wich has type : "${typeof value}"`
-      );
-
-    this._tagId = value;
-  }
-  get tagId() {
-    return this._tagId;
-  }
-}
+);
 
 module.exports = Quiz_has_tag;

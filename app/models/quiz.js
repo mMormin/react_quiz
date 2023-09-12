@@ -1,51 +1,19 @@
-const CoreModel = require("./core/coreModel");
+const dbInstance = require("../db.js");
+const { Model, DataTypes } = require("sequelize");
 
-class Quiz extends CoreModel {
-  _title;
-  _description;
-  _userId;
+class Quiz extends Model {}
 
-  constructor(obj) {
-    super(obj);
-    this.title = obj.title;
-    this.description = obj.description;
-    this.userId = obj.userId;
+Quiz.init(
+  {
+    title: DataTypes.STRING,
+    description: DataTypes.STRING,
+    userId: DataTypes.INTEGER,
+  },
+  {
+    sequelize: dbInstance,
+    modelName: "Quiz",
+    tableName: "quiz",
   }
-
-  set title(value) {
-    if (!typeof value === "string" || !value instanceof String)
-      throw new Error(
-        `title must to be a String. Received type : "${typeof value}"`
-      );
-
-    this._title = value;
-  }
-  get title() {
-    return this._title;
-  }
-
-  set description(value) {
-    if (!typeof value === "string" || !value instanceof String)
-      throw new Error(
-        `description must to be a String. Received type : "${typeof value}"`
-      );
-
-    this._description = value;
-  }
-  get description() {
-    return this._description;
-  }
-
-  set userId(value) {
-    if (!Number.isInteger(value) || value < 1)
-      throw new Error(
-        `userId must be a Number and not 0. Received value : "${value}" wich has type : "${typeof value}"`
-      );
-    this._userId = value;
-  }
-  get userId() {
-    return this._userId;
-  }
-}
+);
 
 module.exports = Quiz;

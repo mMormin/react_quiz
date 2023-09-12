@@ -1,7 +1,8 @@
-require("dotenv").config();
-
+const dotenv = require("dotenv");
 const sequelize = require("./app/db.js");
+const User = require("./app/models/user.js");
 
+dotenv.config();
 const connexionCheck = async () => {
   try {
     await sequelize.authenticate();
@@ -10,18 +11,25 @@ const connexionCheck = async () => {
     console.error("🗃️  Database connection ❌ :", error);
   }
 };
-
 connexionCheck();
 
-/*
 // Check the classes
-const User = require("./app/models/user.js");
-const user = new User({
-//   id: 420, // Si non fourni : undefined = A_I, si fourni : ajout, si 0 ou egal à existant : New Error
-  firstname: "Maxime",
-  lastname: "MB",
-  email: "maxime@mormin.boudot",
-  lastname: "regardepasstpchapochapo",
-});
-console.log(user);
+/*
+const userCheck = async () => {
+  const newUser = await User.create({
+    // id: 420, // Si non fourni : undefined = A_I, si fourni : ajout, si 0 ou egal à existant : New Error
+    firstname: "Maxime",
+    lastname: "MB",
+    email: "maxime@mormin.boudot",
+    password: "regardepasstpchapochapo",
+  });
+  console.log(`Added user Id: ${newUser.id}`);
+
+  const getUsersList = await User.findAll({ raw: true });
+  console.log(getUsersList);
+
+  const getUserThree = await User.findByPk(3);
+  console.log(getUserThree.firstname);
+};
+userCheck();
 */
