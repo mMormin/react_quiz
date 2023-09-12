@@ -15,7 +15,8 @@ Oriented object programmation project with MVC arch and some node packages.
 3. [Postgres Init](https://github.com/O-clock-Cheesecake/oQuiz-mMormin/commit/edbd72d5e6ce30b84b7c79166a448e25e6118165)
 4. [Entities definition](https://github.com/O-clock-Cheesecake/oQuiz-mMormin/commit/05c5cb67f2793827379f7a3445652bc5b95b9bf8)
 5. [Classes Setters(with errors hundlers) & Getters](https://github.com/O-clock-Cheesecake/oQuiz-mMormin/commit/42507d254f48e507eccea343e058e6ac1124002f)
-6. (WIP) CRUD
+6. [Models definition with Sequelize](https://github.com/O-clock-Cheesecake/oQuiz-mMormin/commit/b347aa6471a63fefe555c67509ecf6aa08d421e1)
+7. (WIP)
 <br/>
 
 ## Hotlinks
@@ -27,3 +28,5 @@ https://kourou.oclock.io/ressources/fiche-recap/this/
 *El Famoso Mélange Vodka Coco* :
 https://kourou.oclock.io/ressources/fiche-recap/architecture-mvc-model-view-controller/
 
+*👉🏾❔🧄💤* :
+https://sequelize.org/
