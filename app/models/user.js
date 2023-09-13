@@ -15,12 +15,14 @@ User.init(
     },
     password: {
       type: DataTypes.STRING,
+      allowNull: false,
       validate: {
         is: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^*-]).{8,}$/i, // 8 chars containing at least 1 uppC && 1 lowC && 1 spec from (#?!@$%^*-) && 1 digit
       },
     },
     email: {
       type: DataTypes.STRING,
+      allowNull: false,
       validate: {
         isEmail: true,
       },

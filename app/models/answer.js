@@ -8,11 +8,11 @@ Answer.init(
   {
     text: {
       type: DataTypes.STRING,
+      allowNull: false,
       validate: {
         notEmpty: true,
       },
-    },
-    questionId: DataTypes.INTEGER,
+    }
   },
   {
     sequelize: dbInstance,

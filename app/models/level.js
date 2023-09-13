@@ -1,4 +1,4 @@
-const dbInstance = require("../db.js");
+const dbInstance = require("../db");
 const { Model, DataTypes } = require("sequelize");
 
 class Level extends Model {}
