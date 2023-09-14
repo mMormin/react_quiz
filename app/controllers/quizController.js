@@ -1,24 +1,58 @@
 const mapper = require("../mapper");
 
 const quizController = {
-  homePage: async (req, res) => {
-    const quizzesList = await mapper.getQuizzesList();
+  homePage: async (req, res, next) => {
+    try {
+      const quizzesList = await mapper.getQuizzesList();
 
-    res.render("home", { quizzes: quizzesList });
+      if (!quizzesList) {
+        res.redirect("/404");
+      }
+
+      res.render("home", { quizzes: quizzesList });
+    } catch (error) {
+      console.error(error);
+      res.status(500).send(error.message);
+      next();
+    }
   },
 
-  quizPage: async (req, res) => {
+  quizPage: async (req, res, next) => {
     const { id } = req.params;
-    const quizById = await mapper.getQuizById(id);
+    try {
+      const quizById = await mapper.getQuizById(id);
 
-    res.render("quiz", { quiz: quizById });
+      if (!quizById) {
+        res.redirect("/404");
+      }
+
+      res.render("quiz", { quiz: quizById });
+    } catch (error) {
+      console.error(error);
+      res.status(500).send(error.message);
+      next();
+    }
   },
 
-  tagsPage: async (req, res) => {
-    const tags = await mapper.getTagsList();
-    
-    res.render("tags", { tags });
-  }
+  tagsPage: async (req, res, next) => {
+    try {
+      const tags = await mapper.getTagsList();
+
+      if (!quizzesList) {
+        res.redirect("/404");
+      }
+
+      res.render("tags", { tags });
+    } catch (error) {
+      console.error(error);
+      res.status(500).send(error.message);
+      next();
+    }
+  },
+
+  errorPage: (req, res) => {
+    res.render("404", { errorMessage: "404" });
+  },
 };
 
 module.exports = quizController;

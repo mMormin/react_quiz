@@ -6,5 +6,6 @@ const router = Router();
 router.get("/", quizController.homePage);
 router.get("/quiz/:id", quizController.quizPage);
 router.get("/tags", quizController.tagsPage);
+router.use("*", quizController.errorPage);
 
 module.exports = router;

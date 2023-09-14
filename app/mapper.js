@@ -18,8 +18,6 @@ const mapper = {
         },
       ],
     });
-
-    return quiz;
   },
 
   getTagsList: async () => {
