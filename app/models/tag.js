@@ -1,5 +1,5 @@
-const dbInstance = require("../db.js");
 const { Model, DataTypes } = require("sequelize");
+const sequelize = require("../db.js");
 
 class Tag extends Model {}
 
@@ -14,7 +14,7 @@ Tag.init(
     },
   },
   {
-    sequelize: dbInstance,
+    sequelize,
     modelName: "Tag",
     tableName: "tag",
   }

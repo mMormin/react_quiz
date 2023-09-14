@@ -1,16 +1,36 @@
 require("dotenv").config();
+require("./test.js");
 const sequelize = require("./app/db.js");
-require("./test.js")
+const port = process.env.PORT;
 
-const dbConnexionCheck = async () => {
+// Express Configuration
+const express = require("express");
+const router = require("./app/router");
+const app = express();
+
+app.set("view engine", "ejs");
+app.set("views", "./app/views");
+app.use(express.static("public"));
+
+// Init for POST requests
+app.use(express.urlencoded({ extended: true }));
+
+// Router Init
+app.use(router);
+
+const newConnexion = async () => {
   try {
     await sequelize.authenticate();
     console.log("🗃️  Database connection ✅");
+    app.listen(port, () => {
+      console.log(`📡 Listening on localhost URL : http://localhost:${port}`);
+    });
   } catch (error) {
     console.error("🗃️  Database connexion ❌ :", error);
   }
 };
-dbConnexionCheck();
+
+newConnexion();
 
 /*
 // To force tables creation

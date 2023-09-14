@@ -1,11 +1,11 @@
-const dbInstance = require("../db.js");
 const { Model, DataTypes } = require("sequelize");
+const sequelize = require("../db.js");
 
 class Question extends Model {}
 
 Question.init(
   {
-    text: {
+    description: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
@@ -16,7 +16,7 @@ Question.init(
     wiki: DataTypes.STRING,
   },
   {
-    sequelize: dbInstance,
+    sequelize,
     modelName: "Question",
     tableName: "question",
   }

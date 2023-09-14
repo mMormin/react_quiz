@@ -5,63 +5,64 @@ const Quiz = require("./quiz.js");
 const Tag = require("./tag.js");
 const User = require("./user.js");
 
+// USER <-> QUIZ
 User.hasMany(Quiz, {
-  foreignKey: "userId",
-  as: "quizList",
+  foreignKey: "user_id",
+  as: "quizzesList",
 });
-
 Quiz.belongsTo(User, {
-  foreignKey: "userId",
+  foreignKey: "user_id",
   as: "author",
 });
 
-Tag.belongsToMany(Quiz, {
-  foreignKey: "tagId",
-  through: "quiz_has_tag",
-  otherKey: "quizId",
-  as: "quizsList",
-});
-
+// QUIZ <-> TAG
 Quiz.belongsToMany(Tag, {
-  foreignKey: "quizId",
   through: "quiz_has_tag",
-  otherKey: "tagId",
+  foreignKey: "quiz_id",
   as: "tagsList",
 });
-
-Level.hasMany(Question, {
-  foreignKey: "levelId",
-  as: "questionsList",
+Tag.belongsToMany(Quiz, {
+  through: "quiz_has_tag",
+  foreignKey: "tag_id",
+  as: "quizzesList",
 });
 
-Question.belongsTo(Level, {
-  foreignKey: "levelId",
-  as: "level",
-});
-
+// QUIZ <-> QUESTION
 Quiz.hasMany(Question, {
-  foreignKey: "QuestionId",
+  foreignKey: "quiz_id",
   as: "questionsList",
 });
-
 Question.belongsTo(Quiz, {
-  foreignKey: "quizId",
+  foreignKey: "quiz_id",
   as: "quiz",
 });
 
-Question.hasMany(Answer, {
-  foreignKey: "questionId",
-  as: "AnswersList",
+// QUESTION <-> LEVEL
+Level.hasMany(Question, {
+  foreignKey: "level_id",
+  as: "questionsList",
+});
+Question.belongsTo(Level, {
+  foreignKey: "level_id",
+  as: "level",
 });
 
+// QUESTION <-> ANSWER
+Question.hasMany(Answer, {
+  foreignKey: "question_id",
+  as: "answersList",
+});
+Answer.belongsTo(Question, {
+  foreignKey: "question_id",
+  as: "question",
+});
 Question.belongsTo(Answer, {
-  foreignKey: "answerId",
+  foreignKey: "answer_id",
   as: "goodAnswer",
 });
-
-Answer.belongsTo(Question, {
-  foreignKey: "questionId",
-  as: "question",
+Answer.hasOne(Question, {
+  foreignKey: "answer_id",
+  as: "validates"
 });
 
 module.exports = {

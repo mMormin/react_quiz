@@ -1,5 +1,5 @@
-const dbInstance = require("../db.js");
 const { Model, DataTypes } = require("sequelize");
+const sequelize = require("../db.js");
 
 class Quiz extends Model {}
 
@@ -15,7 +15,7 @@ Quiz.init(
     description: DataTypes.STRING,
   },
   {
-    sequelize: dbInstance,
+    sequelize,
     modelName: "Quiz",
     tableName: "quiz",
   }

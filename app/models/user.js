@@ -1,5 +1,5 @@
-const dbInstance = require("../db.js");
 const { Model, DataTypes } = require("sequelize");
+const sequelize = require("../db.js");
 
 class User extends Model {}
 
@@ -27,7 +27,7 @@ User.init(
         isEmail: true,
       },
     },
-    hoodyFullname: {
+    fullname: {
       type: DataTypes.VIRTUAL,
       get() {
         return `${this.firstname} ${this.lastname}`;
@@ -40,7 +40,7 @@ User.init(
     },
   },
   {
-    sequelize: dbInstance,
+    sequelize,
     modelName: "User",
     tableName: "user",
   }

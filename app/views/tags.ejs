@@ -1,0 +1,23 @@
+<%- include("partials/header") %>
+<%- include("partials/nav") %>
+
+<main class="container py-4">
+  <h1>Thèmes</h1>
+
+  <div>
+    <% for (const tag of tags) { %>
+      <span class="badge bg-primary p-2 mb-1"><%= tag.name %></span>
+
+      <ul>
+        <% for (const question of tag.quizzesList) { %>
+          <li><a href="/quiz/<%= question.id %>"><%= question.title %></a></li>
+        <% } %>
+      </ul>
+    <% } %>
+
+    <!-- Si tag.quizzes est vide retourne ce message
+    <p class="ms-2">Aucun quizz dans cette catégorie pour le moment....</p> -->
+  </div>
+</main>
+
+<%- include("partials/footer") %>

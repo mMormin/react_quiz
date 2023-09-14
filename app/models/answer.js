@@ -1,12 +1,11 @@
-const dbInstance = require("../db.js");
 const { Model, DataTypes } = require("sequelize");
-const Question = require("./question.js");
+const sequelize = require("../db.js");
 
 class Answer extends Model {}
 
 Answer.init(
   {
-    text: {
+    description: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
@@ -15,14 +14,10 @@ Answer.init(
     }
   },
   {
-    sequelize: dbInstance,
+    sequelize,
     modelName: "Answer",
     tableName: "answer",
   }
 );
-
-Answer.belongsTo(Question, {
-  foreignKey: "questionId",
-});
 
 module.exports = Answer;
