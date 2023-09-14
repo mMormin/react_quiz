@@ -20,8 +20,7 @@ Oriented object programmation project with MVC arch and some node packages.
 6. [Models Definition with Sequelize](https://github.com/O-clock-Cheesecake/oQuiz-mMormin/commit/b347aa6471a63fefe555c67509ecf6aa08d421e1)
 7. [Models Association and validation](https://github.com/O-clock-Cheesecake/oQuiz-mMormin/commit/09c35ea3bfa33b590648ca4eb0205863ef939642)
 8. [Express/Ejs Init and Deployment](https://github.com/O-clock-Cheesecake/oQuiz-mMormin/commit/a38a035af3cd7b54c518ec029bf2cf099c5db6f6)
-9. (WIP : Errors messages (dev&user)
-10. (WIP : inscription & connexion)
+9. (WIP : inscription & connexion)
 <br/>
 
 ## Hotlinks
