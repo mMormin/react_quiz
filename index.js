@@ -3,17 +3,29 @@ require("./test.js");
 const sequelize = require("./app/db.js");
 const port = process.env.PORT;
 
-// Express Configuration
+// Deps Imports
 const express = require("express");
 const router = require("./app/router");
-const app = express();
+const session = require("express-session");
 
+// Express Init
+const app = express();
 app.set("view engine", "ejs");
 app.set("views", "./app/views");
 app.use(express.static("public"));
 
 // Init for POST requests
 app.use(express.urlencoded({ extended: true }));
+
+// Session Init
+app.use(
+  session({
+    secret: `Ceci n'est pas vraiment un mot de passe, c'est plus un salt pour encrypter le mot de passe !!!`,
+    resave: true,
+    saveUninitialized: true,
+    cookie: { secure: false },
+  })
+);
 
 // Router Init
 app.use(router);
