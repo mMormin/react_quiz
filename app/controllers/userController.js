@@ -7,12 +7,16 @@ const userController = {
     res.render("signup");
   },
 
+  loginPage: (req, res) => {
+    res.render("login");
+  },
+
   async addNewUser(req, res) {
     const { firstname, lastname, email, password, confirmation } = req.body;
     const encryptedPassword = bcrypt.hashSync(password, 10);
     const userExist = await User.findOne({
       where: {
-        email: data.email,
+        email,
       },
     });
 
@@ -53,7 +57,23 @@ const userController = {
     });
     await newUser.save();
 
-    response.redirect("/signup");
+    res.redirect("/login");
+  },
+
+  async login(req, res) {
+    const { email, password } = req.body;
+    const userExist = await User.findOne({
+      where: { email },
+    });
+    const validPassword = bcrypt.compareSync(password, userExist.password);
+
+    if (!userExist || !validPassword) {
+      return res.render("login", {
+        error: "Email ou mot de passe incorrect.",
+      });
+    }
+
+    res.redirect("/");
   },
 };
 

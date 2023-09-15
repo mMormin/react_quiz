@@ -14,6 +14,10 @@ router.get("/tags", mainController.tagsPage);
 router.get("/signup", userController.signUpPage);
 router.post("/signup", userController.addNewUser);
 
+// Login
+router.get("/login", userController.loginPage);
+router.post("/login", userController.hundleLogin);
+
 // Error Page
 router.use("*", mainController.errorPage);
 
