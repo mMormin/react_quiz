@@ -1,9 +1,12 @@
-const mapper = require("../mapper");
+const { Quiz, Tag } = require("../models/assoc");
 
-const quizController = {
-  homePage: async (req, res, next) => {
+const mainController = {
+  async homePage(req, res, next) {
     try {
-      const quizzesList = await mapper.getQuizzesList();
+      const quizzesList = await Quiz.findAll({
+        include: ["author", "tagsList"],
+        order: [["created_at", "DESC"]],
+      });
 
       if (!quizzesList) {
         res.redirect("/404");
@@ -17,10 +20,19 @@ const quizController = {
     }
   },
 
-  quizPage: async (req, res, next) => {
+  async quizPage(req, res, next) {
     const { id } = req.params;
     try {
-      const quizById = await mapper.getQuizById(id);
+      const quizById = await Quiz.findByPk(id, {
+        include: [
+          "author",
+          "tagsList",
+          {
+            association: "questionsList",
+            include: ["answersList", { association: "level" }],
+          },
+        ],
+      });
 
       if (!quizById) {
         res.redirect("/404");
@@ -34,9 +46,11 @@ const quizController = {
     }
   },
 
-  tagsPage: async (req, res, next) => {
+  async tagsPage(req, res, next) {
     try {
-      const tags = await mapper.getTagsList();
+      const tags = await Tag.findAll({
+        include: ["quizzesList"],
+      });
 
       if (!quizzesList) {
         res.redirect("/404");
@@ -55,4 +69,4 @@ const quizController = {
   },
 };
 
-module.exports = quizController;
+module.exports = mainController;

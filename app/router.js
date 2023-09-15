@@ -1,11 +1,11 @@
 const { Router } = require("express");
-const quizController = require("./controllers/quizController");
+const mainController = require("./controllers/mainController");
 const router = Router();
 
 // Routes definition
-router.get("/", quizController.homePage);
-router.get("/quiz/:id", quizController.quizPage);
-router.get("/tags", quizController.tagsPage);
-router.use("*", quizController.errorPage);
+router.get("/", mainController.homePage);
+router.get("/quiz/:id", mainController.quizPage);
+router.get("/tags", mainController.tagsPage);
+router.use("*", mainController.errorPage);
 
 module.exports = router;
