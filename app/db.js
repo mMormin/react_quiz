@@ -1,4 +1,3 @@
-require("dotenv/config");
 const { Sequelize } = require("sequelize");
 
 const sequelizeConnect = new Sequelize({
@@ -6,6 +5,9 @@ const sequelizeConnect = new Sequelize({
   define: {
     createdAt: "created_at",
     updatedAt: "updated_at",
+  },
+  dialectOptions: {
+    client_encoding: "UTF8",
   },
 });
 

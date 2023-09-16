@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const { User } = require("../models/assoc");
 
 const userController = {
-  signUpPage: (req, res) => {
+  signUpPage: (res, req) => {
     res.render("signup");
   },
 
@@ -11,68 +11,92 @@ const userController = {
     res.render("login");
   },
 
-  async addNewUser(req, res) {
+  profilePage: (req, res) => {
+    res.render("profile");
+  },
+
+  async addNewUser(req, res, next) {
     const { firstname, lastname, email, password, confirmation } = req.body;
-    const encryptedPassword = bcrypt.hashSync(password, 10);
-    const userExist = await User.findOne({
-      where: {
-        email,
-      },
-    });
+    const passwordRegex = new RegExp(
+      /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^*-]).{8,}$/
+    );
 
     if (!firstname || !lastname || !email || !password) {
-      response.render("signup", {
-        error: "Toutes les informations nécessaires n'ont pas été transmises.",
+      return res.render("signup", {
+        error: "inputs",
       });
     }
 
-    if (!validator.validate(data.email)) {
-      res.render("signup", {
-        error: "Cet email n'est pas valide.",
+    if (!validator.validate(email)) {
+      return res.render("signup", {
+        error: "email",
       });
     }
 
-    if (userExist) {
-      res.render("signup", {
-        error: "Cet email est déjà utilisé",
+    if (passwordRegex.test(password) == false) {
+      return res.render("signup", {
+        error: "password",
       });
     }
 
     if (password !== confirmation) {
-      res.render("signup", {
-        error:
-          "Le mot de passe et la confirmation ne correspondent pas. Essaie encore !",
+      res.status(500).render("signup", {
+        error: "matchingPassword",
       });
     }
 
-    // ( il faudrait vérifier aussi que le mdp réponde aux recomendations de la CNIL... )
-    // on pourrait même carrément utiliser un validator par exemple Joi : cf. la doc : https://www.npmjs.com/package/joi
-    // autre amélioration : gestion d'erreurs (404 / 500 ...) + renseigner le status codes HTTP
+    try {
+      const userExist = await User.findOne({
+        where: {
+          email,
+        },
+      });
 
-    const newUser = User.create({
-      firstname,
-      lastname,
-      email,
-      password: encryptedPassword,
-    });
-    await newUser.save();
+      if (userExist) {
+        return res.render("signup", {
+          error: "alreadyExist",
+        });
+      }
+
+      const encryptedPassword = bcrypt.hashSync(password, 10);
+      const newUser = new User({
+        firstname,
+        lastname,
+        email,
+        password: encryptedPassword,
+      });
+
+      await newUser.save();
+    } catch (error) {
+      console.error(error);
+      res.status(500).send(error.message);
+      next();
+    }
 
     res.redirect("/login");
   },
 
-  async login(req, res) {
+  async hundleLogin(req, res) {
     const { email, password } = req.body;
-    const userExist = await User.findOne({
+    const userFound = await User.findOne({
       where: { email },
     });
-    const validPassword = bcrypt.compareSync(password, userExist.password);
+    const validPassword = bcrypt.compareSync(password, userFound.password);
 
-    if (!userExist || !validPassword) {
+    if (!userFound || !validPassword) {
       return res.render("login", {
         error: "Email ou mot de passe incorrect.",
       });
     }
 
+    req.session.user = userFound;
+    delete req.session.user.password;
+
+    res.redirect("/");
+  },
+
+  hundleLogout(req, res) {
+    req.session.user = null;
     res.redirect("/");
   },
 };

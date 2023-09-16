@@ -46,13 +46,13 @@ const mainController = {
     }
   },
 
-  async tagsPage(req, res, next) {
+  async tagPage(req, res, next) {
     try {
       const tags = await Tag.findAll({
         include: ["quizzesList"],
       });
 
-      if (!quizzesList) {
+      if (!tags) {
         res.redirect("/404");
       }
 

@@ -1,0 +1,104 @@
+a,
+.btn:hover {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+p {
+  margin: 0;
+}
+
+h3 {
+  margin-bottom: 1rem;
+}
+
+h4 {
+  padding-top: 1rem;
+  margin: 0;
+}
+
+.question__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.wrapper {
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
+}
+
+.question {
+  margin-bottom: 3rem;
+  background: #ebebeb;
+  padding: 1rem 2rem;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  border-radius: 5px;
+}
+
+.answer {
+  margin: 1rem 0;
+  font-size: 1.2rem;
+}
+
+.button {
+  border: 2px solid green;
+  background-color: green;
+  color: white;
+  text-align: center;
+  letter-spacing: 0.2px;
+  border-radius: 5px;
+  text-decoration: none;
+  padding: 0.6em 1em;
+  font-weight: bold;
+}
+
+.button:hover {
+  border: 2px solid green;
+  background-color: white;
+  color: green;
+  text-decoration: none;
+}
+
+.button--reverse {
+  border: 2px solid green;
+  background-color: white;
+  padding: 0.6em 1em;
+  color: green;
+  font-weight: bold;
+  text-decoration: none;
+  text-align: center;
+  letter-spacing: 0.2px;
+  border-radius: 5px;
+}
+
+.button--reverse:hover {
+  border: 2px solid green;
+  background-color: green;
+  color: white;
+}
+
+.button--off {
+  background-color: red;
+  letter-spacing: 0;
+  font-weight: normal;
+  font-size: 13px;
+  border-radius: 0;
+}
+
+.button--off:hover {
+  background-color: rgb(189, 0, 0);
+  color: white;
+}
+
+.lead {
+  margin: 1em 0;
+}
+
+.card {
+  min-height: 330px;
+}

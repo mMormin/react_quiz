@@ -1,0 +1,43 @@
+<%- include("partials/header") %> <%- include("partials/nav") %>
+
+<main class="container py-4">
+  <h1 class="my-3">Mon profil</h1>
+
+  <label class="form-label h4" for="firstname">Prénom</label>
+  <input
+    class="form-control mb-4"
+    type="text"
+    disabled
+    id="firstname"
+    value="<%= user.firstname %>"
+  />
+
+  <label class="form-label h4" for="lastname">Nom</label>
+  <input
+    class="form-control mb-4"
+    type="text"
+    disabled
+    id="lastname"
+    value="<%= user.lastname %>"
+  />
+
+  <label class="form-label h4" for="email">Email</label>
+  <input
+    class="form-control mb-4"
+    type="text"
+    disabled
+    id="email"
+    value="<%= user.email %>"
+  />
+
+  <label class="form-label h4" for="email">Mot de passe</label>
+  <input
+    class="form-control mb-4"
+    type="text"
+    disabled
+    id="password"
+    value="********"
+  />
+</main>
+
+<%- include("partials/footer") %>

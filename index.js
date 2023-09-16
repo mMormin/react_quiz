@@ -7,6 +7,7 @@ const port = process.env.PORT;
 const express = require("express");
 const router = require("./app/router");
 const session = require("express-session");
+const userMiddleware = require("./app/middlewares/userMdw");
 
 // Express Init
 const app = express();
@@ -23,14 +24,18 @@ app.use(
     secret: `Ceci n'est pas vraiment un mot de passe, c'est plus un salt pour encrypter le mot de passe !!!`,
     resave: true,
     saveUninitialized: true,
-    cookie: { secure: false },
+    cookie: { secure: false, maxAge: 1 * 60 * 60 * 1000 },
   })
 );
+
+// User session
+app.use(userMiddleware);
 
 // Router Init
 app.use(router);
 
-const newConnexion = async () => {
+// Serveur and Database start
+const serverStart = async () => {
   try {
     await sequelize.authenticate();
     console.log("🗃️  Database connection ✅");
@@ -42,7 +47,7 @@ const newConnexion = async () => {
   }
 };
 
-newConnexion();
+serverStart();
 
 /*
 // To force tables creation

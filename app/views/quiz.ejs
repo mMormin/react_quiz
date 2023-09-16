@@ -1,13 +1,13 @@
-<%- include("partials/header") %>
-<%- include("partials/nav") %>
+<%- include("partials/header") %> <%- include("partials/nav") %>
 
 <main class="container py-4">
   <h1 class="text-center m-2"><%= quiz.title %></h1>
   <h2 class="text-center m-2"><%= quiz.description %></h2>
+  <h2 class="small text-end">Par <%= quiz.author.fullname %></h2>
   <h2 class="small text-end">
-    Par <%= quiz.author.hoodyFullname %>
+    Date de création : <%= new Date(quiz.created_at).toLocaleDateString('fr-FR')
+    %>
   </h2>
-  <h2 class="small text-end">Date de création : <%= quiz.created_at %></h2>
   <h3>Thèmes</h3>
   <ul class="mb-4 p-0">
     <% for (const tag of quiz.tagsList) { %>
@@ -17,17 +17,23 @@
   <h3>Questions</h3>
 
   <% for (const question of quiz.questionsList) { %>
-    <span class="badge bg-info"><%= question.level.name %></span>
-    <p class="fw-bold mb-1"><%= question.description %></p>
+  <div class="question">
+    <div class="question__header">
+      <h4 class="fw-bold mb-1"><%= question.description %></h4>
+      <span class="question__badge badge bg-info">
+        <%= question.level.name %>
+      </span>
+    </div>
+    <p class="fst-italic text-secondary"><%= question.anecdote %></p>
     <div class="mb-3 ms-2">
       <% for (const answer of question.answersList) { %>
-      <div>
-        <input type="radio" id="#" name="#" value="#" />
-        <label for="#"><%= answer.description %></label>
+      <div class="answer">
+        <input type="radio" id="<%= answer.id %>" name="<%= question.id %>" value="<%= answer.description %>" />
+        <label for="<%= answer.id %>"><%= answer.description %></label>
       </div>
       <% } %>
     </div>
-    <p class="fst-italic text-secondary"><%= question.anecdote %></p>
+  </div>
   <% } %>
 
   <button class="d-block mx-auto btn btn-primary mb-4">Envoyer</button>

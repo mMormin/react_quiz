@@ -5,12 +5,7 @@
 
   <h1>Inscription</h1>
 
-  <!-- Toast en cas d'erreur -->
-  <% if(locals.error) { %>
-    <div class="alert alert-danger" role="alert">
-      <%= error %>
-    </div>
-  <% } %>
+  <%- include("partials/error") %>
 
   <form action="/signup" method="POST">
     <label class="form-label h4" for="firstname">Prénom</label>

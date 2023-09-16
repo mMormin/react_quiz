@@ -1,6 +1,26 @@
-<% switch(errorMessage) { case "404": %>
-<p class="error error--404">
-  La chose que vous recherchez se trouve peut-être quelque part<br />mais elle
-  n'est pas ici . . .
-</p>
-<% break; } %>
+<% if(locals.error) { %> <% switch(locals.error) { case "inputs": %>
+<div class="alert alert-danger" role="alert">
+  <p>Veuillez remplir tous les champs pour compléter votre incription.</p>
+</div>
+<% break; case "email": %>
+<div class="alert alert-danger" role="alert">
+  <p>Veuillez fournir une adresse email valide. (ex: moi@exemple.fr)</p>
+</div>
+<% break; case "alreadyExist": %>
+<div class="alert alert-danger wrapper" role="alert">
+  <p>Malheureusement cette adresse email est déjà utilisée.</p>
+  <a class="button--reverse" href="/login">Se connecter</a>
+</div>
+<% break; case "password": %>
+<div class="alert alert-danger" role="alert">
+  <p>
+    Les mots de passe doivent faire 8 caractéres au minimum et contenir une
+    majuscule, un chiffre et un caractére spécial !
+  </p>
+</div>
+<% break; case "matchingPassword": %>
+<div class="alert alert-danger" role="alert">
+  <p>Les mots de passe ne correspondent pas.</p>
+</div>
+
+<% break; }} %>
