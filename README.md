@@ -24,7 +24,7 @@ Oriented object programmation project with MVC arch and some node packages.
 8. [Express/Ejs Init and Deployment](https://github.com/O-clock-Cheesecake/oQuiz-mMormin/commit/a38a035af3cd7b54c518ec029bf2cf099c5db6f6)
 9. [User Signup](https://github.com/O-clock-Cheesecake/oQuiz-mMormin/commit/bda9c2f6f73ada5d0f455fbfc9667b51eee6a875)
 10. [User Login](https://github.com/O-clock-Cheesecake/oQuiz-mMormin/commit/c617401badc92048b3fe9430a4b10151503c7358)
-11. [User cookie in express-ession](https://github.com/O-clock-Cheesecake/oQuiz-mMormin/commit/ee7517d6aee3c0a2257802fa061e5d4050fb4cf3)
+11. [User session with express-session](https://github.com/O-clock-Cheesecake/oQuiz-mMormin/commit/ee7517d6aee3c0a2257802fa061e5d4050fb4cf3)
 12. [User Logout](https://github.com/O-clock-Cheesecake/oQuiz-mMormin/commit/efb6f3722dc20927d24305e18c1da803da5709c7)
 13. (WIP - Edit profile page + dev errors + score + quiz timer)
 <br/>
