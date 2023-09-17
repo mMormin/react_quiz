@@ -1,12 +1,12 @@
 <!-- To clean SRC:https://www.tutorialrepublic.com/codelab.php?topic=bootstrap&file=crud-data-table-for-database-with-modal-form -->
 
-<!-- Edit Modal HTML -->
-<div id="addEmployeeModal" class="modal fade">
+<!-- Add Modal -->
+<div id="add<%= modal.uppercased %>Modal" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
-      <form>
+      <form action="/admin/add/<%= modal.name %>" method="POST">
         <div class="modal-header">
-          <h4 class="modal-title">Add Employee</h4>
+          <h4 class="modal-title">Add <%= modal.uppercased %></h4>
           <button
             type="button"
             class="close"
@@ -17,22 +17,42 @@
           </button>
         </div>
         <div class="modal-body">
+          <% switch(add) { case "user": %>
           <div class="form-group">
-            <label>Name</label>
-            <input type="text" class="form-control" required />
+            <label for="firstname">Prénom</label>
+            <input class="form-control" type="firstname" id="firstname" name="firstname" placeholder="Prénom" required />
           </div>
           <div class="form-group">
-            <label>Email</label>
-            <input type="email" class="form-control" required />
+            <label for="lastname">Nom</label>
+            <input type="lastname" id="lastname" name="lastname" placeholder="Nom" class="form-control" required />
           </div>
           <div class="form-group">
-            <label>Address</label>
-            <textarea class="form-control" required></textarea>
+            <label for="email">Email</label>
+            <input class="form-control" type="email" id="email" name="email" placeholder="email@domain.com" required />
           </div>
           <div class="form-group">
-            <label>Phone</label>
-            <input type="text" class="form-control" required />
+            <label for="password">Mot de passe</label>
+            <input type="password" id="password" name="password" placeholder="*********" class="form-control" required />
           </div>
+          <% break; case "quiz": %>
+          <div class="form-group">
+            <label for="title">Titre</label>
+            <input class="form-control" type="title" id="title" name="title" placeholder="Quel est le muscle ?" required />
+          </div>
+          <div class="form-group">
+            <label for="description">Nom</label>
+            <textarea type="description" id="description" name="description" placeholder="description" class="form-control" required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input class="form-control" type="email" id="email" name="email" placeholder="email@domain.com" required />
+          </div>
+          <% break; case "tag": %>
+          <div class="form-group">
+            <label for="name">Nom</label>
+            <input class="form-control" type="name" id="name" name="name" placeholder="Anatomie" required />
+          </div>
+          <% break; } %>
         </div>
         <div class="modal-footer">
           <input
@@ -96,12 +116,13 @@
   </div>
 </div>
 
-<div id="delete<%= modal.name %>" class="modal fade">
+<!-- Delete Modal -->
+<div id="delete<%= modal.uppercased %>Modal" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
-      <form action="/admin<%= modal.path %>" method="POST">
+      <form action="/admin/delete/<%= modal.name %>" method="POST">
         <div class="modal-header">
-          <h4 class="modal-title">Delete <%= modal.name %></h4>
+          <h4 class="modal-title">Delete <%= modal.uppercased %></h4>
           <button
             type="button"
             class="close"

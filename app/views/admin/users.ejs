@@ -10,7 +10,7 @@
           </div>
           <div class="col-sm-6">
             <a
-              href="#addEmployeeModal"
+              href="#addUserModal"
               class="btn btn-success"
               data-toggle="modal"
             >
@@ -67,7 +67,7 @@
                   &#xE254;
                 </i>
               </a>
-              <a href="#deleteUser" class="delete" data-toggle="modal" data-selector="<%= user.email %>">
+              <a href="#deleteUserModal" class="delete" data-toggle="modal" data-selector="<%= user.email %>">
                 <i class="material-icons" data-toggle="tooltip" title="Delete">
                   &#xE872;
                 </i>
@@ -84,7 +84,7 @@
     <div class="hint-text">Showing <b><%= users.length %></b> out of <b><%= users.length %></b> entries</div>
   </div>
 
-  <%- include("partials/modal", {modal:modalValues}) %>
+  <%- include("partials/modal", {modal: modalValues, add: "user"}) %>
 </main>
 
 </div>

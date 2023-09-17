@@ -10,7 +10,7 @@
           </div>
           <div class="col-sm-6">
             <a
-              href="#addEmployeeModal"
+              href="#addTagModal"
               class="btn btn-success"
               data-toggle="modal"
             >
@@ -63,7 +63,7 @@
                   &#xE254;
                 </i>
               </a>
-              <a href="#deleteTag" class="delete" data-toggle="modal" data-selector="<%= tag.id %>">
+              <a href="#deleteTagModal" class="delete" data-toggle="modal" data-selector="<%= tag.id %>">
                 <i class="material-icons" data-toggle="tooltip" title="Delete">
                   &#xE872;
                 </i>
@@ -82,7 +82,7 @@
     </div>
   </div>
 
-  <%- include("partials/modal", {modal:modalValues}) %>
+  <%- include("partials/modal", {modal:modalValues, add: "tag"}) %>
 </main>
 
 <%- include("../partials/footer") %>

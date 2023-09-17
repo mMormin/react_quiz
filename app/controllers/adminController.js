@@ -4,7 +4,7 @@ const User = require("../models/user");
 
 const adminController = {
   async userPage(req, res, next) {
-    const modalValues = { name: "User", path: "/users/delete", type: "email" };
+    const modalValues = { name: "user", uppercased: "User", type: "email" };
 
     try {
       const users = await User.findAll({
@@ -17,6 +17,32 @@ const adminController = {
       }
 
       res.render("admin/users", { users, modalValues });
+    } catch (error) {
+      console.error(error);
+      res.status(500).send(error.message);
+      next();
+    }
+  },
+
+  async hundleUserAdd(req, res, next) {
+    const { firstname, lastname, email, password } = req.body;
+
+    try {
+      const newUser = new User({
+        firstname,
+        lastname,
+        email,
+        password,
+      });
+
+      if (!newUser) {
+        return res.redirect("/404");
+      }
+
+      await newUser.save();
+
+
+      res.redirect("/admin/users");
     } catch (error) {
       console.error(error);
       res.status(500).send(error.message);
@@ -46,7 +72,7 @@ const adminController = {
   },
 
   async quizPage(req, res, next) {
-    const modalValues = { name: "Quiz", path: "/quizzes/delete", type: "id" };
+    const modalValues = { name: "quizzes", uppercased: "Quiz", type: "id" };
 
     try {
       const quizzes = await Quiz.findAll({
@@ -66,6 +92,30 @@ const adminController = {
     }
   },
 
+  async hundleQuizAdd(req, res, next) {
+    const { title, description } = req.body;
+
+    try {
+      const newQuiz = new Quiz({
+        title,
+        description,
+        user_id: 1,
+      });
+
+      if (!newQuiz) {
+        return res.redirect("/404");
+      }
+
+      await newQuiz.save();
+
+      res.redirect("/admin/quizzes");
+    } catch (error) {
+      console.error(error);
+      res.status(500).send(error.message);
+      next();
+    }
+  },
+
   async hundleQuizDelete(req, res, next) {
     const { id } = req.body;
 
@@ -77,7 +127,7 @@ const adminController = {
       });
 
       if (!quiz) {
-        console.log(id)
+        console.log(id);
         res.redirect("/404");
       }
 
@@ -90,7 +140,7 @@ const adminController = {
   },
 
   async tagPage(req, res) {
-    const modalValues = { name: "Tag", path: "/tags/delete", type: "id" };
+    const modalValues = { name: "tags", uppercased: "Tag", type: "id" };
 
     try {
       const tags = await Tag.findAll({
@@ -103,6 +153,28 @@ const adminController = {
       }
 
       res.render("admin/tags", { tags, modalValues });
+    } catch (error) {
+      console.error(error);
+      res.status(500).send(error.message);
+      next();
+    }
+  },
+
+  async hundleTagAdd(req, res, next) {
+    const { name } = req.body;
+
+    try {
+      const newTag = new Tag({
+        name,
+      });
+
+      if (!newTag) {
+        return res.redirect("/404");
+      }
+
+      await newTag.save();
+
+      res.redirect("/admin/tags");
     } catch (error) {
       console.error(error);
       res.status(500).send(error.message);
