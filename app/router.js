@@ -2,6 +2,7 @@ const { Router } = require("express");
 
 const mainController = require("./controllers/mainController");
 const userController = require("./controllers/userController");
+const adminController = require("./controllers/adminController");
 
 const router = Router();
 
@@ -21,6 +22,11 @@ router.get("/logout", userController.hundleLogout);
 
 // Profile
 router.get("/profile/:email", userController.profilePage);
+
+// Admin
+router.get("/admin/users", adminController.userPage);
+router.get("/admin/quizzes", adminController.quizPage);
+router.get("/admin/tags", adminController.tagPage);
 
 
 // Error Page

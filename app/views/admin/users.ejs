@@ -1,0 +1,84 @@
+<%- include("partials/header") %>
+
+<main class="container py-4">
+  <div class="table-responsive">
+    <div class="table-wrapper">
+      <div class="table-title">
+        <div class="row">
+          <div class="col-sm-6">
+            <h2><b>Users</b> List</h2>
+          </div>
+          <div class="col-sm-6">
+            <a
+              href="#addEmployeeModal"
+              class="btn btn-success"
+              data-toggle="modal"
+            >
+              <i class="material-icons">&#xE147;</i>
+              <span>ADD</span>
+            </a>
+            <a
+              href="#deleteEmployeeModal"
+              class="btn btn-danger"
+              data-toggle="modal"
+            >
+              <i class="material-icons">&#xE15C;</i><span>DELETE ALL</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th>
+              <span class="custom-checkbox">
+                <input type="checkbox" id="selectAll" />
+                <label for="selectAll"></label>
+              </span>
+            </th>
+            <th>Fistname</th>
+            <th>Lastname</th>
+            <th>Email</th>
+            <th>Quizzes created</th>
+            <th>Manage</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for (const user of users) { %>
+          <tr>
+            <td>
+              <span class="custom-checkbox">
+                <input
+                  type="checkbox"
+                  id="<%= user.id %>"
+                  name="options[]"
+                  value="<%= user.email %>"
+                />
+                <label for="<%= user.id %>"></label>
+              </span>
+            </td>
+            <td><%= user.firstname %></td>
+            <td><%= user.lastname %></td>
+            <td><%= user.email %></td>
+            <td class="paddy"><%= user.quizzesList.length %></td>
+            <td class="controls">
+              <a href="#editEmployeeModal" class="edit" data-toggle="modal">
+                <i class="material-icons" data-toggle="tooltip" title="Edit">
+                  &#xE254;
+                </i>
+              </a>
+              <a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
+                <i class="material-icons" data-toggle="tooltip" title="Delete">
+                  &#xE872;
+                </i>
+              </a>
+            </td>
+          </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>
+
+<%- include("../partials/footer") %>
