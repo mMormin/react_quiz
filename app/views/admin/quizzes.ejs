@@ -73,7 +73,12 @@
                   &#xE254;
                 </i>
               </a>
-              <a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
+              <a
+                href="#deleteQuiz"
+                class="delete"
+                data-toggle="modal"
+                data-selector="<%= quiz.id %>"
+              >
                 <i class="material-icons" data-toggle="tooltip" title="Delete">
                   &#xE872;
                 </i>
@@ -85,6 +90,15 @@
       </table>
     </div>
   </div>
+
+  <div class="clearfix">
+    <div class="hint-text">
+      Showing <b><%= quizzes.length %></b> out of
+      <b><%= quizzes.length %></b> entries
+    </div>
+  </div>
+
+  <%- include("partials/modal", {modal:modalValues}) %>
 </main>
 
 <%- include("../partials/footer") %>

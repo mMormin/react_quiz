@@ -1,6 +1,9 @@
 .controls {
   text-align: right;
 }
+button {
+  border: none;
+}
 .table-responsive {
   margin: 30px 0;
 }

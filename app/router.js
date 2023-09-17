@@ -25,9 +25,11 @@ router.get("/profile/:email", userController.profilePage);
 
 // Admin
 router.get("/admin/users", adminController.userPage);
+router.post("/admin/users/delete", adminController.hundleUserDelete);
 router.get("/admin/quizzes", adminController.quizPage);
+router.post("/admin/quizzes/delete", adminController.hundleQuizDelete);
 router.get("/admin/tags", adminController.tagPage);
-
+router.post("/admin/tags/delete", adminController.hundleTagDelete);
 
 // Error Page
 router.use("*", mainController.errorPage);
