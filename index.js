@@ -8,16 +8,15 @@ const router = require("./app/router");
 const session = require("express-session");
 const userMiddleware = require("./app/middlewares/userMdw");
 
-// Express Init
+// Express Initialization
 const app = express();
 app.set("view engine", "ejs");
 app.set("views", "./app/views");
 app.use(express.static("public"));
-
 // Init for POST requests
 app.use(express.urlencoded({ extended: true }));
 
-// Session Init
+// Session Initialization
 app.use(
   session({
     secret: `Ceci n'est pas vraiment un mot de passe, c'est plus un salt pour encrypter le mot de passe !!!`,
@@ -27,13 +26,13 @@ app.use(
   })
 );
 
-// User session
+// User Session Middleware
 app.use(userMiddleware);
 
-// Router Init
+// Router Initialization
 app.use(router);
 
-// Serveur and Database start
+// Server Initialization and Database Connexion Check
 const serverStart = async () => {
   try {
     await sequelize.authenticate();
@@ -49,7 +48,7 @@ const serverStart = async () => {
 serverStart();
 
 /*
-// To force tables creation
+// Force tables creation
 const tablesCreation = async () => {
   try {
     await sequelize.sync({ force: true });
