@@ -16,33 +16,31 @@ const userController = {
   },
 
   async addNewUser(req, res, next) {
+    let error;
+
     const { firstname, lastname, email, password, confirmation } = req.body;
     const passwordRegex = new RegExp(
       /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^*-]).{8,}$/
     );
 
     if (!firstname || !lastname || !email || !password) {
-      return res.render("signup", {
-        error: "signup",
-      });
+      error = "signup";
+      return res.render("signup", { error });
     }
 
     if (!validator.validate(email)) {
-      return res.render("signup", {
-        error: "email",
-      });
+      error = "email";
+      return res.render("signup", { error });
     }
 
     if (passwordRegex.test(password) == false) {
-      return res.render("signup", {
-        error: "password",
-      });
+      error = "password";
+      return res.render("signup", { error });
     }
 
     if (password !== confirmation) {
-      res.status(500).render("signup", {
-        error: "matchingPassword",
-      });
+      error = "matchingPassword";
+      return res.render("signup", { error });
     }
 
     try {
@@ -53,9 +51,8 @@ const userController = {
       });
 
       if (userExist) {
-        return res.render("signup", {
-          error: "alreadyExist",
-        });
+        error = "alreadyExist";
+        return res.render("signup", { error });
       }
 
       const encryptedPassword = bcrypt.hashSync(password, 10);
@@ -80,12 +77,6 @@ const userController = {
   async hundleLogin(req, res) {
     const { email, password } = req.body;
 
-    if (!email || !password) {
-      return res.render("login", {
-        error: "login",
-      });
-    }
-
     try {
       const userFound = await User.findOne({
         where: { email },
@@ -93,10 +84,10 @@ const userController = {
       const validPassword = bcrypt.compareSync(password, userFound.password);
 
       if (!userFound || !validPassword) {
-        return res.render("login", {
-          error: "Email ou mot de passe incorrect.",
-        });
+        const error = "login";
+        return res.render("login", { error });
       }
+
       userFound.password = null;
       req.session.user = userFound;
       delete req.session.user.password;

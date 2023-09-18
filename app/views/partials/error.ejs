@@ -1,29 +1,25 @@
-<% if(locals.error) { %> <% switch(locals.error) { case "signup": %>
 <div class="alert alert-danger" role="alert">
-  <p>Veuillez remplir tous les champs pour compléter votre incription.</p>
-</div>
-<% break; case "email": %>
-<div class="alert alert-danger" role="alert">
-  <p>Veuillez fournir une adresse email valide (ex: moi@exemple.fr).</p>
-</div>
-<% break; case "alreadyExist": %>
-<div class="alert alert-danger wrapper" role="alert">
-  <p>Malheureusement cette adresse email est déjà utilisée.</p>
-  <a class="button--reverse" href="/login">Se connecter</a>
-</div>
-<% break; case "password": %>
-<div class="alert alert-danger" role="alert">
-  <p>
+  <% switch(locals.error) { case "signup": %>
+    <p>Veuillez remplir tous les champs pour compléter votre incription.</p>
+  <% break; case "email": %>
+    <p>Veuillez fournir une adresse email valide (ex: moi@exemple.fr).</p>
+  <% break; case "alreadyExist": %>
+    <p>Malheureusement cette adresse email est déjà utilisée.</p>
+    <a class="button--reverse" href="/login">Se connecter</a>
+  <% break; case "password": %>
+   <p>
     Les mots de passe doivent faire 8 caractéres au minimum et contenir une
     majuscule, un chiffre et un caractére spécial !
-  </p>
+   </p>
+  <% break; case "matchingPassword": %>
+    <p>Les mots de passe ne correspondent pas.</p>
+  <% break; case "login": %>
+    <p>Email ou Mot de passe incorrect.</p>
+  <% break; case "failure": %>
+    <p>La manipulation a rencontré un probléme et ne s'est pas éxécuté.</p>
+  <% break; case "noQuizzes": %>
+    <p>Aucun quiz pour le moment, revenez plus tard !</p>
+  <% break; case "noTags": %>
+    <p>Pour le moment, il n'y a aucun théme...</p>
+  <% break; } %>
 </div>
-<% break; case "matchingPassword": %>
-<div class="alert alert-danger" role="alert">
-  <p>Les mots de passe ne correspondent pas.</p>
-</div>
-<% break; case "login": %>
-<div class="alert alert-danger" role="alert">
-  <p>Veuillez remplir tous les champs pour vous connecter.</p>
-</div>
-<% break; }} %>

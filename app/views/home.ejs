@@ -1,5 +1,4 @@
-<%- include("partials/header") %>
-<%- include("partials/nav") %>
+<%- include("partials/header") %> <%- include("partials/nav") %>
 
 <main class="container py-4">
   <div class="text-center">
@@ -12,7 +11,9 @@
   </div>
 
   <div class="row mb-3 text-center flew-wrap">
-    <% for (const quiz of quizzes) { %>
+    <% if (locals.error) { %>
+      <%- include("partials/error") %>
+    <% } else { for (const quiz of quizzes) { %>
     <div class="col-4">
       <div class="card mb-4">
         <div class="card-header">
@@ -35,7 +36,7 @@
         </div>
       </div>
     </div>
-    <% } %>
+    <% }} %>
   </div>
 </main>
 

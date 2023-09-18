@@ -8,6 +8,11 @@ const mainController = {
         order: [["created_at", "DESC"]],
       });
 
+      if (!quizzesList) {
+        const error = "noQuizzes";
+        return res.render("home", { error });
+      }
+
       res.render("home", { quizzes: quizzesList });
     } catch (error) {
       console.error(error);
@@ -18,6 +23,7 @@ const mainController = {
 
   async quizPage(req, res, next) {
     const { id } = req.params;
+
     try {
       const quizById = await Quiz.findByPk(id, {
         include: [
@@ -31,7 +37,7 @@ const mainController = {
       });
 
       if (!quizById) {
-        res.status(404).redirect("/status", {status: "404"} );
+        return res.status(404).render("status", { status: "404" });
       }
 
       res.render("quiz", { quiz: quizById });
@@ -47,6 +53,11 @@ const mainController = {
       const tags = await Tag.findAll({
         include: ["quizzesList"],
       });
+
+      if (!tags) {
+        const error = "noTags";
+        res.render("quiz", { error });
+      }
 
       res.render("tags", { tags });
     } catch (error) {

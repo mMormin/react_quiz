@@ -33,7 +33,7 @@ const adminController = {
       });
 
       if (!newUser) {
-        return res.status(400).redirect("/status", {status: "400"});
+        return res.render("/admin/users", { error: "failure" });
       }
 
       await newUser.save();
@@ -56,7 +56,7 @@ const adminController = {
       });
 
       if (!user) {
-        return res.status(400).redirect("/status", {status: "400"});
+        return res.render("/admin/users", { error: "failure" });
       }
 
       res.redirect("/admin/users");
@@ -95,7 +95,7 @@ const adminController = {
       });
 
       if (!newQuiz) {
-        return res.status(400).redirect("/status", {status: "400"});
+        return res.render("/admin/quizzes", { error: "failure" });
       }
 
       await newQuiz.save();
@@ -119,7 +119,7 @@ const adminController = {
       });
 
       if (!quiz) {
-        return res.status(400).redirect("/status", {status: "400"});
+        return res.render("/admin/quizzes", { error: "failure" });
       }
 
       res.redirect("/admin/quizzes");
@@ -155,8 +155,8 @@ const adminController = {
         name,
       });
 
-      if (!newTag) {
-        return res.status(400).redirect("/status", {status: "400"});
+      if (!newTag || !name) {
+        return res.render("/admin/tags", { error: "failure" });
       }
 
       await newTag.save();
@@ -180,7 +180,7 @@ const adminController = {
       });
 
       if (!tag) {
-        return res.status(400).redirect("/status", {status: "400"});
+        return res.render("/admin/tags", { error: "failure" });
       }
 
       res.redirect("/admin/tags");

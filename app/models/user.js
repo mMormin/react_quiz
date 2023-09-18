@@ -39,7 +39,7 @@ User.init(
       },
       set(value) {
         throw new Error(
-          "Error while the creation of _hoodyFullname under the hood."
+          "Error while the creation of fullname under the hood."
         );
       },
     },

@@ -36,7 +36,7 @@ router.get("/admin/tags", adminMiddleware, adminController.tagPage);
 router.post("/admin/add/tag", adminMiddleware, adminController.hundleTagAdd);
 router.post("/admin/delete/tags", adminMiddleware, adminController.hundleTagDelete);
 
-// Error Page
+// Undefined path
 router.use("*", mainController.errorPage);
 
 module.exports = router;
