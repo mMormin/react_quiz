@@ -26,8 +26,11 @@ Oriented object programmation project with MVC arch and some node packages.
 10. [User Login](https://github.com/O-clock-Cheesecake/oQuiz-mMormin/commit/c617401badc92048b3fe9430a4b10151503c7358)
 11. [User session with express-session](https://github.com/O-clock-Cheesecake/oQuiz-mMormin/commit/ee7517d6aee3c0a2257802fa061e5d4050fb4cf3)
 12. [User Logout](https://github.com/O-clock-Cheesecake/oQuiz-mMormin/commit/efb6f3722dc20927d24305e18c1da803da5709c7)
-13. (WIP | CRUD ADMIN) Last commit
-14. (WIP | dev errors + score + quiz timer)
+13. [Admin Delete controller](https://github.com/O-clock-Cheesecake/oQuiz-mMormin/commit/916096cf0df47c31242f057e78fd0014cec9665e)
+14. [Admin Add controller](https://github.com/O-clock-Cheesecake/oQuiz-mMormin/commit/a99f0dae2cfc7c73b9af33ff6286b4f04990c230)
+15. [Pages Roles Restrictions](https://github.com/O-clock-Cheesecake/oQuiz-mMormin/commit/4bd396640403404bca9e608e070543b256173019)
+16. (WIP | admin update controller)
+17. (WIP | manage errors + goodAnswer hundle + score + quiz timer)
 <br/>
 
 ## Hotlinks
