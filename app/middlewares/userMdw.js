@@ -1,4 +1,4 @@
-const userMdw = (req, res, next) => {
+const userMiddleware = (req, res, next) => {
   if (req.session.user) {
     res.locals.user = req.session.user;
   } else {
@@ -7,4 +7,4 @@ const userMdw = (req, res, next) => {
   next();
 };
 
-module.exports = userMdw;
+module.exports = userMiddleware;

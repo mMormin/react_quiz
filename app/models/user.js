@@ -27,6 +27,11 @@ User.init(
         isEmail: true,
       },
     },
+    role: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: "member",
+    },
     fullname: {
       type: DataTypes.VIRTUAL,
       get() {

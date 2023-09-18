@@ -1,10 +1,10 @@
-<% if(locals.error) { %> <% switch(locals.error) { case "inputs": %>
+<% if(locals.error) { %> <% switch(locals.error) { case "signup": %>
 <div class="alert alert-danger" role="alert">
   <p>Veuillez remplir tous les champs pour compléter votre incription.</p>
 </div>
 <% break; case "email": %>
 <div class="alert alert-danger" role="alert">
-  <p>Veuillez fournir une adresse email valide. (ex: moi@exemple.fr)</p>
+  <p>Veuillez fournir une adresse email valide (ex: moi@exemple.fr).</p>
 </div>
 <% break; case "alreadyExist": %>
 <div class="alert alert-danger wrapper" role="alert">
@@ -22,5 +22,8 @@
 <div class="alert alert-danger" role="alert">
   <p>Les mots de passe ne correspondent pas.</p>
 </div>
-
+<% break; case "login": %>
+<div class="alert alert-danger" role="alert">
+  <p>Veuillez remplir tous les champs pour vous connecter.</p>
+</div>
 <% break; }} %>

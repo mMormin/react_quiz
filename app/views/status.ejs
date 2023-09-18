@@ -3,11 +3,19 @@
 
 <main class="container py-4">
   <div class="text-center">
+    <% switch(status) { case "404": %>
     <h1 class="error__title">404</h1>
     <p>
       La chose que vous recherchez se trouve peut-être quelque part<br />mais
       elle n'est pas ici . . .
     </p>
+    <% break; case "403": %>
+    <h1 class="error__title">403</h1>
+    <p>Malheureusement, un simple moldu n'a pas accés à cette page.</p>
+    <% break; case "400": %>
+    <h1 class="error__title">403</h1>
+    <p>Mmmh, il semblerait qu'il y ai un probléme dans la requéte.</p>
+    <% break; } %>
   </div>
 </main>
 

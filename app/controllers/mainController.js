@@ -8,10 +8,6 @@ const mainController = {
         order: [["created_at", "DESC"]],
       });
 
-      if (!quizzesList) {
-        res.redirect("/404");
-      }
-
       res.render("home", { quizzes: quizzesList });
     } catch (error) {
       console.error(error);
@@ -35,7 +31,7 @@ const mainController = {
       });
 
       if (!quizById) {
-        res.redirect("/404");
+        res.status(404).redirect("/status", {status: "404"} );
       }
 
       res.render("quiz", { quiz: quizById });
@@ -52,10 +48,6 @@ const mainController = {
         include: ["quizzesList"],
       });
 
-      if (!tags) {
-        res.redirect("/404");
-      }
-
       res.render("tags", { tags });
     } catch (error) {
       console.error(error);
@@ -65,7 +57,7 @@ const mainController = {
   },
 
   errorPage: (req, res) => {
-    res.render("404", { errorMessage: "404" });
+    res.status(404).render("status", { status: "404" });
   },
 };
 

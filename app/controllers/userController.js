@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const { User } = require("../models/assoc");
 
 const userController = {
-  signUpPage: (res, req) => {
+  signUpPage: (req, res) => {
     res.render("signup");
   },
 
@@ -23,7 +23,7 @@ const userController = {
 
     if (!firstname || !lastname || !email || !password) {
       return res.render("signup", {
-        error: "inputs",
+        error: "signup",
       });
     }
 
@@ -63,6 +63,7 @@ const userController = {
         firstname,
         lastname,
         email,
+        role: "member",
         password: encryptedPassword,
       });
 
@@ -78,21 +79,34 @@ const userController = {
 
   async hundleLogin(req, res) {
     const { email, password } = req.body;
-    const userFound = await User.findOne({
-      where: { email },
-    });
-    const validPassword = bcrypt.compareSync(password, userFound.password);
 
-    if (!userFound || !validPassword) {
+    if (!email || !password) {
       return res.render("login", {
-        error: "Email ou mot de passe incorrect.",
+        error: "login",
       });
     }
 
-    req.session.user = userFound;
-    delete req.session.user.password;
+    try {
+      const userFound = await User.findOne({
+        where: { email },
+      });
+      const validPassword = bcrypt.compareSync(password, userFound.password);
 
-    res.redirect("/");
+      if (!userFound || !validPassword) {
+        return res.render("login", {
+          error: "Email ou mot de passe incorrect.",
+        });
+      }
+      userFound.password = null;
+      req.session.user = userFound;
+      delete req.session.user.password;
+
+      res.redirect("/");
+    } catch (error) {
+      console.error(error);
+      res.status(500).send(error.message);
+      next();
+    }
   },
 
   hundleLogout(req, res) {

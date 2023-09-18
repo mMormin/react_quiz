@@ -12,10 +12,6 @@ const adminController = {
         order: [["created_at", "DESC"]],
       });
 
-      if (!users) {
-        res.redirect("/404");
-      }
-
       res.render("admin/users", { users, modalValues });
     } catch (error) {
       console.error(error);
@@ -33,14 +29,14 @@ const adminController = {
         lastname,
         email,
         password,
+        role: "admin",
       });
 
       if (!newUser) {
-        return res.redirect("/404");
+        return res.status(400).redirect("/status", {status: "400"});
       }
 
       await newUser.save();
-
 
       res.redirect("/admin/users");
     } catch (error) {
@@ -60,7 +56,7 @@ const adminController = {
       });
 
       if (!user) {
-        res.redirect("/404");
+        return res.status(400).redirect("/status", {status: "400"});
       }
 
       res.redirect("/admin/users");
@@ -79,10 +75,6 @@ const adminController = {
         include: ["author", "tagsList"],
         order: [["created_at", "DESC"]],
       });
-
-      if (!quizzes) {
-        res.redirect("/404");
-      }
 
       res.render("admin/quizzes", { quizzes, modalValues });
     } catch (error) {
@@ -103,7 +95,7 @@ const adminController = {
       });
 
       if (!newQuiz) {
-        return res.redirect("/404");
+        return res.status(400).redirect("/status", {status: "400"});
       }
 
       await newQuiz.save();
@@ -127,8 +119,7 @@ const adminController = {
       });
 
       if (!quiz) {
-        console.log(id);
-        res.redirect("/404");
+        return res.status(400).redirect("/status", {status: "400"});
       }
 
       res.redirect("/admin/quizzes");
@@ -148,10 +139,6 @@ const adminController = {
         include: ["quizzesList"],
       });
 
-      if (!tags) {
-        res.redirect("/404");
-      }
-
       res.render("admin/tags", { tags, modalValues });
     } catch (error) {
       console.error(error);
@@ -169,7 +156,7 @@ const adminController = {
       });
 
       if (!newTag) {
-        return res.redirect("/404");
+        return res.status(400).redirect("/status", {status: "400"});
       }
 
       await newTag.save();
@@ -193,7 +180,7 @@ const adminController = {
       });
 
       if (!tag) {
-        res.redirect("/404");
+        return res.status(400).redirect("/status", {status: "400"});
       }
 
       res.redirect("/admin/tags");
