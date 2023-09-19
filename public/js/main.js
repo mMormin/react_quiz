@@ -7,9 +7,9 @@ $(document).ready(function () {
 
   editButton.click(function (e) {
     e.preventDefault();
-    inputs.prop("disabled", false);
-    $(this).prop("disabled", true);
+    inputs.prop("disabled", false, !inputs.prop("disabled", true));
+    $(this).prop("disabled", true, !$(this).prop("disabled", false));
     inputs.val("");
-    validateBtn.show();
+    validateBtn.toggle();
   });
 });

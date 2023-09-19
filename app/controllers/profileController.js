@@ -1,6 +1,16 @@
+const User = require("../models/user");
+
 const profileController = {
   profilePage: (req, res) => {
-    res.render("profile");
+    res.render("profile/profile");
+  },
+
+  profileQuizzesPage: (req, res) => {
+    res.render("profile/profile_quizzes");
+  },
+
+  profileScorePage: (req, res) => {
+    res.render("profile/profile_score");
   },
 
   async hundleProfileEdit(req, res, next) {
@@ -15,7 +25,7 @@ const profileController = {
       });
 
       if (!user) {
-        return res.render("/admin/users", { error: "failure" });
+        return res.render(`/profile/${ user.email }`, { error: "failure" });
       }
 
       if (!firstname) {
@@ -36,7 +46,7 @@ const profileController = {
 
       await user.save();
 
-      res.redirect("/profile");
+      res.redirect(`/profile/${ user.email }`);
     } catch (error) {
       console.error(error);
       res.status(500).send(error.message);

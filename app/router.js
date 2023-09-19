@@ -3,9 +3,9 @@ const { Router } = require("express");
 const mainController = require("./controllers/mainController");
 const userController = require("./controllers/userController");
 const adminController = require("./controllers/adminController");
+const profileController = require("./controllers/profileController");
 const adminMiddleware = require("./middlewares/memberMdw");
 const memberMiddleware = require("./middlewares/memberMdw");
-const profileController = require("./controllers/profileController");
 
 const router = Router();
 
@@ -25,6 +25,9 @@ router.get("/logout", userController.hundleLogout);
 
 // Profile
 router.get("/profile/:email", memberMiddleware, profileController.profilePage);
+router.post("/profile/edit/:email", memberMiddleware, profileController.hundleProfileEdit);
+router.get("/profile/quizzes", memberMiddleware, profileController.profileQuizzesPage);
+router.get("/profile/score", memberMiddleware, profileController.profileScorePage);
 
 // Admin
 router.get("/admin/users", adminMiddleware, adminController.userPage);

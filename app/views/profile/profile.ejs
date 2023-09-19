@@ -1,8 +1,19 @@
-<%- include("partials/header") %> <%- include("partials/nav") %>
+<%- include("../partials/header") %>
+<%- include("../partials/nav") %>
 
 <main class="container py-4">
   <h1 class="my-3">Mon profil</h1>
-  <form action="/profile/<%= user.email %>/edit" method="POST">
+
+  <nav>
+    <ul>
+      <li><a href="/profile/<%= user.email %>">Profil</a></li>
+      <li><a class="active" href="/profile/quizzes">Mes quizs</a></li>
+      <li><a href="/profile/score">Mes scores</a></li>
+    </ul>
+  </nav>
+
+  <form action="/profile/edit/<%= user.email %>" method="POST">
+    <h2>Mes informations</h2>
     <label class="form-label h4" for="firstname">Prénom</label>
     <input
       class="form-control mb-4 disabled"
@@ -40,12 +51,8 @@
     />
 
     <button class="button button--edit">Modifier</button>
-    <input
-      class="button my-4 mx-auto hidden"
-      type="submit"
-      value="Valider"
-    />
+    <input class="button my-4 mx-auto hidden" type="submit" value="Valider" />
   </form>
 </main>
 
-<%- include("partials/footer") %>
+<%- include("../partials/footer") %>

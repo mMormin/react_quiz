@@ -1,6 +1,10 @@
+const Answer = require("../models/answer");
 const Quiz = require("../models/quiz");
 const Tag = require("../models/tag");
 const User = require("../models/user");
+const { QueryTypes } = require('sequelize');
+const sequelize = require("../db.js");
+
 
 const adminController = {
   async userPage(req, res, next) {
@@ -105,7 +109,6 @@ const adminController = {
       if (!user) {
         return res.render("/admin/users", { error: "failure" });
       }
-
       await user.destroy();
 
       res.redirect("/admin/users");
@@ -205,11 +208,14 @@ const adminController = {
         },
       });
 
+      await sequelize.query(`ALTER TABLE "answer" DROP CONSTRAINT answer_question_id_fkey`, { type: QueryTypes.RAW });
+      await quiz.destroy();
+      await sequelize.query(`ALTER TABLE "answer" ADD CONSTRAINT answer_question_id_fkey FOREIGN KEY ("question_id") REFERENCES "answer"("id") ON DELETE SET NULL`, { type: QueryTypes.RAW });
+
       if (!quiz) {
         return res.render("/admin/quizzes", { error: "failure" });
       }
 
-      await quiz.destroy();
 
       res.redirect("/admin/quizzes");
     } catch (error) {
