@@ -1,0 +1,122 @@
+<div id="add<%= data.uc %>Modal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form action="/admin/add/<%= data.name %>/<%= data.id %>" method="POST">
+        <div class="modal-header">
+          <h4 class="modal-title">Add <%= data.uc %></h4>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-hidden="true"
+          >
+            &times;
+          </button>
+        </div>
+        <div class="modal-body">
+          <% switch(data.name) { case "user": %>
+          <div class="form-group">
+            <label for="firstname">Prénom</label>
+            <input
+              class="form-control"
+              type="text"
+              id="firstname"
+              name="firstname"
+              placeholder="Prénom"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="lastname">Nom</label>
+            <input
+              type="text"
+              id="lastname"
+              name="lastname"
+              placeholder="Nom"
+              class="form-control"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input
+              class="form-control"
+              type="email"
+              id="email"
+              name="email"
+              placeholder="email@domain.com"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="password">Mot de passe</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="*********"
+              class="form-control"
+              required
+            />
+          </div>
+          <% break; case "quiz": %>
+          <div class="form-group">
+            <label for="title">Titre</label>
+            <input
+              class="form-control"
+              type="text"
+              id="title"
+              name="title"
+              placeholder="Quel est le muscle ?"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea
+              type="text"
+              id="description"
+              name="description"
+              placeholder="description"
+              class="form-control"
+              required
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input
+              class="form-control"
+              type="email"
+              id="email"
+              name="email"
+              placeholder="email@domain.com"
+              required
+            />
+          </div>
+          <% break; case "tag": %>
+          <div class="form-group">
+            <label for="name">Nom</label>
+            <input
+              class="form-control"
+              type="text"
+              id="name"
+              name="name"
+              placeholder="Anatomie"
+              required
+            />
+          </div>
+          <% break; } %>
+        </div>
+        <div class="modal-footer">
+          <input
+            type="button"
+            class="btn btn-default"
+            data-dismiss="modal"
+            value="Cancel"
+          />
+          <input type="submit" class="btn btn-success" value="Add" />
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

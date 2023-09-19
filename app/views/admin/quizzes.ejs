@@ -46,9 +46,9 @@
               <span class="custom-checkbox">
                 <input
                   type="checkbox"
-                  id="<%= quiz.id %>"
+                  id="quiz-<%= quiz.id %>"
                   name="options[]"
-                  value="<%= quiz.description %>"
+                  value="quiz-<%= quiz.description %>"
                 />
                 <label for="<%= quiz.id %>"></label>
               </span>
@@ -64,16 +64,15 @@
             </td>
             <th><%= quiz.author.email %></th>
             <td class="controls">
-              <a href="#editEmployeeModal" class="edit" data-toggle="modal">
+              <a href="#editQuizModal<%= quiz.id %>" class="edit" data-toggle="modal">
                 <i class="material-icons" data-toggle="tooltip" title="Edit">
                   &#xE254;
                 </i>
               </a>
               <a
-                href="#deleteQuizModal"
+                href="#deleteQuizModal<%= quiz.id %>"
                 class="delete"
                 data-toggle="modal"
-                data-selector="<%= quiz.id %>"
               >
                 <i class="material-icons" data-toggle="tooltip" title="Delete">
                   &#xE872;
@@ -93,8 +92,14 @@
       <b><%= quizzes.length %></b> entries
     </div>
   </div>
+  
+  <%- include("partials/modals/addModal", { data }) %>
 
-  <%- include("partials/modal", {modal:modalValues, formAdd: "quiz"}) %>
+
+  <% for (const quiz of quizzes) { %>
+    <%- include("partials/modals/editModal", { data, quiz, id: quiz.id }) %>
+    <%- include("partials/modals/deleteModal", { data, id: quiz.id }) %>
+  <% } %>
 </main>
 
 <%- include("../partials/footer") %>

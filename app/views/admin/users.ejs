@@ -18,7 +18,7 @@
               <span>ADD</span>
             </a>
             <a
-              href="#deleteUser"
+              href="#deleteUsersModal"
               class="btn btn-danger"
               data-toggle="modal"
             >
@@ -51,9 +51,9 @@
               <span class="custom-checkbox">
                 <input
                   type="checkbox"
-                  id="<%= user.id %>"
+                  id="user-<%= user.id %>"
                   name="options[]"
-                  value="<%= user.email %>"
+                  value="user-<%= user.email %>"
                 />
                 <label for="<%= user.id %>"></label>
               </span>
@@ -64,12 +64,12 @@
             <td class="paddy"><%= user.quizzesList.length %></td>
             <td><%= user.role %></td>
             <td class="controls">
-              <a href="#editEmployeeModal" class="edit" data-toggle="modal">
+              <a href="#editUserModal<%= user.id %>" class="edit" data-toggle="modal">
                 <i class="material-icons" data-toggle="tooltip" title="Edit">
                   &#xE254;
                 </i>
               </a>
-              <a href="#deleteUserModal" class="delete" data-toggle="modal" data-selector="<%= user.email %>">
+              <a href="#deleteUserModal<%= user.id %>" class="delete" data-toggle="modal">
                 <i class="material-icons" data-toggle="tooltip" title="Delete">
                   &#xE872;
                 </i>
@@ -86,9 +86,12 @@
     <div class="hint-text">Showing <b><%= users.length %></b> out of <b><%= users.length %></b> entries</div>
   </div>
 
-  <%- include("partials/modal", {modal: modalValues, formAdd: "user"}) %>
-</main>
+  <%- include("partials/modals/addModal", { data }) %>
 
-</div>
+  <% for (const user of users) { %>
+    <%- include("partials/modals/editModal", { data, user, id: user.id }) %>
+    <%- include("partials/modals/deleteModal", { data, id: user.id }) %>
+  <% } %>
+</main>
 
 <%- include("../partials/footer") %>

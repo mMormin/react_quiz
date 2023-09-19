@@ -5,6 +5,7 @@ const userController = require("./controllers/userController");
 const adminController = require("./controllers/adminController");
 const adminMiddleware = require("./middlewares/memberMdw");
 const memberMiddleware = require("./middlewares/memberMdw");
+const profileController = require("./controllers/profileController");
 
 const router = Router();
 
@@ -23,18 +24,21 @@ router.post("/login", userController.hundleLogin);
 router.get("/logout", userController.hundleLogout);
 
 // Profile
-router.get("/profile/:email", memberMiddleware, userController.profilePage);
+router.get("/profile/:email", memberMiddleware, profileController.profilePage);
 
 // Admin
 router.get("/admin/users", adminMiddleware, adminController.userPage);
 router.post("/admin/add/user", adminMiddleware, adminController.hundleUserAdd);
-router.post("/admin/delete/users", adminMiddleware, adminController.hundleUserDelete);
+router.post("/admin/edit/user/:id", adminMiddleware, adminController.hundleUserEdit);
+router.post("/admin/delete/user/:id", adminMiddleware, adminController.hundleUserDelete);
 router.get("/admin/quizzes", adminMiddleware, adminController.quizPage);
 router.post("/admin/add/quiz", adminMiddleware, adminController.hundleQuizAdd);
-router.post("/admin/delete/quizzes", adminMiddleware, adminController.hundleQuizDelete);
+router.post("/admin/edit/quiz/:id", adminMiddleware, adminController.hundleQuizEdit);
+router.post("/admin/delete/quiz/:id", adminMiddleware, adminController.hundleQuizDelete);
 router.get("/admin/tags", adminMiddleware, adminController.tagPage);
 router.post("/admin/add/tag", adminMiddleware, adminController.hundleTagAdd);
-router.post("/admin/delete/tags", adminMiddleware, adminController.hundleTagDelete);
+router.post("/admin/edit/tag/:id", adminMiddleware, adminController.hundleTagEdit);
+router.post("/admin/delete/tag/:id", adminMiddleware, adminController.hundleTagDelete);
 
 // Undefined path
 router.use("*", mainController.errorPage);

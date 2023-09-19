@@ -44,26 +44,29 @@
               <span class="custom-checkbox">
                 <input
                   type="checkbox"
-                  id="<%= tag.id %>"
+                  id="tag-<%= tag.id %>"
                   name="options[]"
                   value="<%= tag.name %>"
                 />
-                <label for="<%= tag .id %>"></label>
+                <label for="tag-<%= tag.id %>"></label>
               </span>
             </td>
             <td><%= tag.name %></td>
             <td class="paddy"><%= tag.quizzesList.length %></td>
             <td class="controls">
-              <a href="#editEmployeeModal" class="edit" data-toggle="modal">
+              <a
+                href="#editTagModal<%= tag.id %>"
+                class="edit"
+                data-toggle="modal"
+              >
                 <i class="material-icons" data-toggle="tooltip" title="Edit">
                   &#xE254;
                 </i>
               </a>
               <a
-                href="#deleteTagModal"
+                href="#deleteTagModal<%= tag.id %>"
                 class="delete"
                 data-toggle="modal"
-                data-selector="<%= tag.id %>"
               >
                 <i class="material-icons" data-toggle="tooltip" title="Delete">
                   &#xE872;
@@ -83,7 +86,9 @@
     </div>
   </div>
 
-  <%- include("partials/modal", {modal:modalValues, formAdd: "tag"}) %>
+  <%- include("partials/modals/addModal", { data }) %> <% for (const tag of
+  tags) { %> <%- include("partials/modals/editModal", { data, tag, id: tag.id})
+  %> <%- include("partials/modals/deleteModal", { data, id: tag.id}) %> <% } %>
 </main>
 
 <%- include("../partials/footer") %>

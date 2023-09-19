@@ -6,8 +6,11 @@
     <nav class="my-1">
       <a class="p-2 text-white" href="/">Accueil</a>
       <a class="p-2 text-white" href="/tags">Sujets</a>
-      <% if(locals.user) { %>
-      <a class="p-2 text-white"href="/profile/:<%= user.email %>"><%= user.fullname %></a>
+      <% if (locals.user) { %>
+        <% if (locals.user.role == "admin") { %>
+          <a class="p-2 text-white" href="/admin/users">Admin Panel</a>
+        <% } %>
+      <a class="p-2 text-white"href="/profile/<%= user.email %>"><%= user.fullname %></a>
       <a class="button button--off" href="/logout">Se déconnecter</a>
       <% } else { %>
       <a class="p-2 text-white" href="/signup">S'inscrire</a>

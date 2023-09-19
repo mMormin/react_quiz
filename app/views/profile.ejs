@@ -2,42 +2,50 @@
 
 <main class="container py-4">
   <h1 class="my-3">Mon profil</h1>
+  <form action="/profile/<%= user.email %>/edit" method="POST">
+    <label class="form-label h4" for="firstname">Prénom</label>
+    <input
+      class="form-control mb-4 disabled"
+      type="text"
+      id="firstname"
+      placeholder="<%= user.firstname %>"
+      value="<%= user.firstname %>"
+    />
 
-  <label class="form-label h4" for="firstname">Prénom</label>
-  <input
-    class="form-control mb-4"
-    type="text"
-    disabled
-    id="firstname"
-    value="<%= user.firstname %>"
-  />
+    <label class="form-label h4" for="lastname">Nom</label>
+    <input
+      class="form-control mb-4 disabled"
+      type="text"
+      id="lastname"
+      placeholder="<%= user.lastname %>"
+      value="<%= user.lastname %>"
+    />
 
-  <label class="form-label h4" for="lastname">Nom</label>
-  <input
-    class="form-control mb-4"
-    type="text"
-    disabled
-    id="lastname"
-    value="<%= user.lastname %>"
-  />
+    <label class="form-label h4" for="email">Email</label>
+    <input
+      class="form-control mb-4 disabled"
+      type="text"
+      id="email"
+      placeholder="<%= user.email %>"
+      value="<%= user.email %>"
+    />
 
-  <label class="form-label h4" for="email">Email</label>
-  <input
-    class="form-control mb-4"
-    type="text"
-    disabled
-    id="email"
-    value="<%= user.email %>"
-  />
+    <label class="form-label h4" for="email">Mot de passe</label>
+    <input
+      class="form-control mb-4"
+      type="text"
+      disabled
+      id="password"
+      value="********"
+    />
 
-  <label class="form-label h4" for="email">Mot de passe</label>
-  <input
-    class="form-control mb-4"
-    type="text"
-    disabled
-    id="password"
-    value="********"
-  />
+    <button class="button button--edit">Modifier</button>
+    <input
+      class="button my-4 mx-auto hidden"
+      type="submit"
+      value="Valider"
+    />
+  </form>
 </main>
 
 <%- include("partials/footer") %>

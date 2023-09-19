@@ -56,7 +56,9 @@ h4 {
   padding: 0.6em 1em;
   font-weight: bold;
 }
-
+.hidden {
+  display: none;
+}
 .button:hover {
   border: 2px solid green;
   background-color: white;

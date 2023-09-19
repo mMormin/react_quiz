@@ -4,7 +4,7 @@ const User = require("../models/user");
 
 const adminController = {
   async userPage(req, res, next) {
-    const modalValues = { name: "user", uppercased: "User", type: "email" };
+    const modalData = { name: "user", uc: "User" };
 
     try {
       const users = await User.findAll({
@@ -12,7 +12,7 @@ const adminController = {
         order: [["created_at", "DESC"]],
       });
 
-      res.render("admin/users", { users, modalValues });
+      res.render("admin/users", { users, data: modalData });
     } catch (error) {
       console.error(error);
       res.status(500).send(error.message);
@@ -46,18 +46,67 @@ const adminController = {
     }
   },
 
-  async hundleUserDelete(req, res, next) {
-    const { email } = req.body;
+  async hundleUserEdit(req, res, next) {
+    const { id } = req.params;
+    let { editFirstname, editLastname, editEmail, editPassword } = req.body;
+
     try {
-      const user = await User.destroy({
+      const user = await User.findOne({
         where: {
-          email,
+          id,
         },
       });
 
       if (!user) {
         return res.render("/admin/users", { error: "failure" });
       }
+
+      if (!editFirstname) {
+        editFirstname = user.firstname;
+      }
+      if (!editLastname) {
+        editLastname = user.lastname;
+      }
+      if (!editEmail) {
+        editEmail = user.email;
+      }
+      if (!editPassword) {
+        editPassword = user.password;
+      }
+
+      user.set({
+        firstname: editFirstname,
+        lastname: editLastname,
+        email: editEmail,
+        password: editPassword,
+      });
+
+      await user.save();
+
+      res.redirect("/admin/users");
+    } catch (error) {
+      console.error(error);
+      res.status(500).send(error.message);
+      next();
+    }
+  },
+
+  async hundleUserDelete(req, res, next) {
+    const { id } = req.params;
+
+    console.log(id)
+    try {
+      const user = await User.findOne({
+        where: {
+          id,
+        },
+      });
+
+      if (!user) {
+        return res.render("/admin/users", { error: "failure" });
+      }
+
+      await user.destroy();
 
       res.redirect("/admin/users");
     } catch (error) {
@@ -68,7 +117,7 @@ const adminController = {
   },
 
   async quizPage(req, res, next) {
-    const modalValues = { name: "quizzes", uppercased: "Quiz", type: "id" };
+    const modalData = { name: "quiz", uc: "Quiz" };
 
     try {
       const quizzes = await Quiz.findAll({
@@ -76,7 +125,7 @@ const adminController = {
         order: [["created_at", "DESC"]],
       });
 
-      res.render("admin/quizzes", { quizzes, modalValues });
+      res.render("admin/quizzes", { quizzes, data: modalData });
     } catch (error) {
       console.error(error);
       res.status(500).send(error.message);
@@ -108,11 +157,12 @@ const adminController = {
     }
   },
 
-  async hundleQuizDelete(req, res, next) {
-    const { id } = req.body;
+  async hundleQuizEdit(req, res, next) {
+    const { id } = req.params;
+    let { editTitle, editDescription } = req.body;
 
     try {
-      const quiz = await Quiz.truncate({
+      const quiz = await Quiz.findOne({
         where: {
           id,
         },
@@ -121,6 +171,45 @@ const adminController = {
       if (!quiz) {
         return res.render("/admin/quizzes", { error: "failure" });
       }
+
+      if (!editTitle) {
+        editTitle = quiz.title;
+      }
+
+      if (!editDescription) {
+        editDescription = quiz.description;
+      }
+
+      user.set({
+        title: editTitle,
+        description: editDescription,
+      });
+
+      await quiz.save();
+
+      res.redirect("/admin/quizzes");
+    } catch (error) {
+      console.error(error);
+      res.status(500).send(error.message);
+      next();
+    }
+  },
+
+  async hundleQuizDelete(req, res, next) {
+    const { id } = req.params;
+
+    try {
+       const quiz = await Quiz.findOne({
+        where: {
+          id,
+        },
+      });
+
+      if (!quiz) {
+        return res.render("/admin/quizzes", { error: "failure" });
+      }
+
+      await quiz.destroy();
 
       res.redirect("/admin/quizzes");
     } catch (error) {
@@ -131,7 +220,7 @@ const adminController = {
   },
 
   async tagPage(req, res) {
-    const modalValues = { name: "tags", uppercased: "Tag", type: "id" };
+    const modalData = { name: "tag", uc: "Tag" };
 
     try {
       const tags = await Tag.findAll({
@@ -139,7 +228,7 @@ const adminController = {
         include: ["quizzesList"],
       });
 
-      res.render("admin/tags", { tags, modalValues });
+      res.render("admin/tags", { tags, data: modalData });
     } catch (error) {
       console.error(error);
       res.status(500).send(error.message);
@@ -169,11 +258,44 @@ const adminController = {
     }
   },
 
-  async hundleTagDelete(req, res, next) {
-    const { id } = req.body;
+  async hundleTagEdit(req, res, next) {
+    const { id } = req.params;
+    let { editName } = req.body;
 
     try {
-      const tag = await Tag.destroy({
+      const tag = await Tag.findOne({
+        where: {
+          id,
+        },
+      });
+
+      if (!tag) {
+        return res.render("/admin/quizzes", { error: "failure" });
+      }
+
+      if (!editName) {
+        editName = tag.name;
+      }
+
+      user.set({
+        name: editName,
+      });
+
+      await tag.save();
+
+      res.redirect("/admin/quizzes");
+    } catch (error) {
+      console.error(error);
+      res.status(500).send(error.message);
+      next();
+    }
+  },
+
+  async hundleTagDelete(req, res, next) {
+    const { id } = req.params;
+
+    try {
+      const tag = await Tag.findOne({
         where: {
           id,
         },
@@ -182,6 +304,8 @@ const adminController = {
       if (!tag) {
         return res.render("/admin/tags", { error: "failure" });
       }
+
+      await tag.destroy();
 
       res.redirect("/admin/tags");
     } catch (error) {
