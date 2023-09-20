@@ -8,9 +8,9 @@ const mainController = {
         order: [["created_at", "DESC"]],
       });
 
-      if (!quizzesList) {
+      if (!quizzesList.length) {
         const error = "noQuizzes";
-        return res.render("home", { error });
+        return res.render("home", { quizzes, error });
       }
 
       res.render("home", { quizzes: quizzesList });
@@ -36,7 +36,7 @@ const mainController = {
         ],
       });
 
-      if (!quizById) {
+      if (!quizById.length) {
         return res.status(404).render("status", { status: "404" });
       }
 
@@ -54,9 +54,9 @@ const mainController = {
         include: ["quizzesList"],
       });
 
-      if (!tags) {
+      if (!tags.length) {
         const error = "noTags";
-        res.render("quiz", { error });
+        res.render("tags", { tags, error });
       }
 
       res.render("tags", { tags });

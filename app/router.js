@@ -25,8 +25,10 @@ router.get("/logout", userController.hundleLogout);
 
 // Profile
 router.get("/profile", memberMiddleware, profileController.profilePage);
-router.post("/profile/edit/:email", memberMiddleware, profileController.hundleProfileEdit);
+router.post("/profile/edit", memberMiddleware, profileController.hundleProfileEdit);
 router.get("/profile/quizzes", memberMiddleware, profileController.profileQuizzesPage);
+router.get("/profile/quizzes/add", memberMiddleware, profileController.quizAddPage);
+router.post("/profile/quizzes/add", memberMiddleware, profileController.hundleQuizAdd);
 router.get("/profile/score", memberMiddleware, profileController.profileScorePage);
 
 // Admin

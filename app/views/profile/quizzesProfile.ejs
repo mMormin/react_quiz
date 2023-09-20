@@ -1,0 +1,36 @@
+<%- include("../partials/header") %> <%- include("../partials/nav") %>
+
+<main class="container py-4">
+  <div class="d-flex justify-content-between align-items-center mt-4 mb-5">
+    <h1>MON PROFIL</h1>
+
+    <nav class="w-25">
+      <ul class="profile__menu d-flex justify-content-around bg-primary">
+        <li><a class="text-white" href="/profile">Profil</a></li>
+        <li>
+          <a class="active text-white" href="/profile/quizzes">Mes quizs</a>
+        </li>
+        <li><a class="text-white" href="/profile/score">Mes scores</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <h2>Mes quizs</h2>
+  <% if (locals.error) { %>
+    <%- include("../partials/error") %>
+  <% } else { %>
+  <ul>
+    <% for (const quiz of quizzes) { %>
+    <li>
+      <div>
+        <h3><%= quiz.title %></h3>
+        <span>Voir le quiz</span>
+      </div>
+    </li>
+    <% } %>
+  </ul>
+  <% } %>
+  <a class="button button--add" href="/profile/quizzes/add">Ajouter un quizz</a>
+</main>
+
+<%- include("../partials/footer") %>
