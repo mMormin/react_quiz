@@ -29,8 +29,9 @@ Oriented object programmation project with MVC arch and some node packages.
 13. [Admin Delete controller](https://github.com/O-clock-Cheesecake/oQuiz-mMormin/commit/916096cf0df47c31242f057e78fd0014cec9665e)
 14. [Admin Add controller](https://github.com/O-clock-Cheesecake/oQuiz-mMormin/commit/a99f0dae2cfc7c73b9af33ff6286b4f04990c230)
 15. [Pages Roles Restrictions](https://github.com/O-clock-Cheesecake/oQuiz-mMormin/commit/4bd396640403404bca9e608e070543b256173019)
-16. (WIP | admin update controller)
-17. (WIP | manage errors + goodAnswer hundle + score + quiz timer)
+16. [Admin Update controller](https://github.com/O-clock-Cheesecake/oQuiz-mMormin/commit/d635e8f6d184f68454c55995312d29032b624864)
+17. (WIP | profile CRUD Quiz Controller)
+18. (goodAnswer hundle + score + quiz timer)
 <br/>
 
 ## Hotlinks
