@@ -11,10 +11,7 @@ const userMiddleware = require("./app/middlewares/userMdw");
 // Express Initialization
 const app = express();
 app.set("view engine", "ejs");
-app.set("views", [
-  "app/views",
-  "app/views/profile/",
-]);
+app.set("views", "app/views");
 app.use(express.static("public"));
 // Init for POST requests
 app.use(express.urlencoded({ extended: true }));

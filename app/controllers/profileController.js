@@ -5,11 +5,11 @@ const profileController = {
     res.render("profile/profile");
   },
 
-  profileQuizzesPage: (req, res) => {
+  async profileQuizzesPage(req, res) {
     res.render("profile/profile_quizzes");
   },
 
-  profileScorePage: (req, res) => {
+  async profileScorePage (req, res){
     res.render("profile/profile_score");
   },
 

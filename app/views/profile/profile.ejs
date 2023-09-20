@@ -2,19 +2,21 @@
 <%- include("../partials/nav") %>
 
 <main class="container py-4">
-  <h1 class="my-3">Mon profil</h1>
+  <div class="d-flex justify-content-between align-items-center mt-4 mb-5">
+    <h1>MON PROFIL</h1>
+  
+    <nav class="w-25">
+      <ul class="profile__menu d-flex justify-content-around bg-primary">
+        <li><a class="active text-white" href="/profile">Profil</a></li>
+        <li><a class="text-white" href="/profile/quizzes">Mes quizs</a></li>
+        <li><a class="text-white" href="/profile/score">Mes scores</a></li>
+      </ul>
+    </nav>
+  </div>
 
-  <nav>
-    <ul>
-      <li><a href="/profile/<%= user.email %>">Profil</a></li>
-      <li><a class="active" href="/profile/quizzes">Mes quizs</a></li>
-      <li><a href="/profile/score">Mes scores</a></li>
-    </ul>
-  </nav>
-
-  <form action="/profile/edit/<%= user.email %>" method="POST">
+  <form class="p-5" action="/profile/edit/<%= user.email %>" method="POST">
     <h2>Mes informations</h2>
-    <label class="form-label h4" for="firstname">Prénom</label>
+    <label class="form-label h4 mb-3" for="firstname">Prénom</label>
     <input
       class="form-control mb-4 disabled"
       type="text"
@@ -23,7 +25,7 @@
       value="<%= user.firstname %>"
     />
 
-    <label class="form-label h4" for="lastname">Nom</label>
+    <label class="form-label h4 mb-3" for="lastname">Nom</label>
     <input
       class="form-control mb-4 disabled"
       type="text"
@@ -32,7 +34,7 @@
       value="<%= user.lastname %>"
     />
 
-    <label class="form-label h4" for="email">Email</label>
+    <label class="form-label h4 mb-3" for="email">Email</label>
     <input
       class="form-control mb-4 disabled"
       type="text"
@@ -41,7 +43,7 @@
       value="<%= user.email %>"
     />
 
-    <label class="form-label h4" for="email">Mot de passe</label>
+    <label class="form-label h4 mb-3" for="email">Mot de passe</label>
     <input
       class="form-control mb-4"
       type="text"
