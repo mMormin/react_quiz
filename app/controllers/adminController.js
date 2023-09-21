@@ -2,9 +2,8 @@ const Answer = require("../models/answer");
 const Quiz = require("../models/quiz");
 const Tag = require("../models/tag");
 const User = require("../models/user");
-const { QueryTypes } = require('sequelize');
+const { QueryTypes } = require("sequelize");
 const sequelize = require("../db.js");
-
 
 const adminController = {
   async userPage(req, res, next) {
@@ -98,7 +97,7 @@ const adminController = {
   async hundleUserDelete(req, res, next) {
     const { id } = req.params;
 
-    console.log(id)
+    console.log(id);
     try {
       const user = await User.findOne({
         where: {
@@ -198,24 +197,35 @@ const adminController = {
     }
   },
 
+  async rawQuery(req, res, next) {
+    
+  },
+
   async hundleQuizDelete(req, res, next) {
     const { id } = req.params;
 
     try {
-       const quiz = await Quiz.findOne({
+      const quiz = await Quiz.findOne({
         where: {
           id,
         },
       });
-
-      await sequelize.query(`ALTER TABLE "answer" DROP CONSTRAINT answer_question_id_fkey`, { type: QueryTypes.RAW });
-      await quiz.destroy();
-      await sequelize.query(`ALTER TABLE "answer" ADD CONSTRAINT answer_question_id_fkey FOREIGN KEY ("question_id") REFERENCES "answer"("id") ON DELETE SET NULL`, { type: QueryTypes.RAW });
-
       if (!quiz) {
         return res.render("/admin/quizzes", { error: "failure" });
       }
+      const constraintDrop = await sequelize.query(
+        `ALTER TABLE "answer" DROP CONSTRAINT answer_question_id_fkey`,
+        { type: QueryTypes.RAW }
+      );
+      const destroy = await quiz.destroy();
+      const constraintAdd = await sequelize.query(
+        `ALTER TABLE "answer" ADD CONSTRAINT answer_question_id_fkey FOREIGN KEY ("question_id") REFERENCES "answer"("id") ON DELETE SET NULL`,
+        { type: QueryTypes.RAW }
+      );
 
+      const promises = [quiz, constraintDrop, destroy, constraintAdd];
+
+      await Promise.allSettled(promises);
 
       res.redirect("/admin/quizzes");
     } catch (error) {

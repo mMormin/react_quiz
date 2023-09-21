@@ -12,13 +12,15 @@ const profileController = {
   },
 
   async profileQuizzesPage(req, res, next) {
-    const loggedUserId = res.locals.user.id;
+    const user_id = res.locals.user.id;
 
     try {
       const quizzes = await Quiz.findAll({
         where: {
-          id: loggedUserId,
+          user_id,
         },
+        include: ["tagsList"],
+        order: [["created_at", "DESC"]],
       });
 
       if (!quizzes.length) {
@@ -48,21 +50,29 @@ const profileController = {
   },
 
   async hundleQuizAdd(req, res, next) {
-    let error;
-    let { title, description } = req.body;
+    const { title, description, tag } = req.body;
     const user_id = res.locals.user.id;
 
     try {
-      // const questions = Question.findAll({
-      //   where: {
-      //     id: loggedUserId,
-      //   },
-      // });
-
       if (!title) {
-        error = "quizTitle";
-        return res.render("profile/addQuizProfile", { error });
+        const tags = await Tag.findAll();
+        return res.render("profile/addQuizProfile", {
+          tags,
+          error: "quizTitle",
+        });
       }
+
+      // await Quiz.create(
+      //   {
+      //     title,
+      //     description,
+      //     user_id,
+      //     quiz_has_tag: {quiz_id: this.id, tag_id: tag},
+      //   },
+      //   {
+      //     include: "quiz_has_tag",
+      //   }
+      // );
 
       const newQuiz = new Quiz({
         title,
@@ -70,17 +80,23 @@ const profileController = {
         user_id,
       });
 
-      await sequelize.query(
-        `ALTER TABLE "answer" DROP CONSTRAINT answer_question_id_fkey`,
-        { type: QueryTypes.RAW }
-      );
       await newQuiz.save();
-      await sequelize.query(
-        `ALTER TABLE "answer" ADD CONSTRAINT answer_question_id_fkey FOREIGN KEY ("question_id") REFERENCES "answer"("id") ON DELETE SET NULL`,
-        { type: QueryTypes.RAW }
-      );
+      if (Array.isArray(tag)) {
+        for (let i = 0; i < tag.length; ++i) {
+          const oneTag = tag[i];
+          await sequelize.query(
+            `INSERT INTO quiz_has_tag (quiz_id, tag_id) VALUES (${newQuiz.id}, ${oneTag});`,
+            { type: QueryTypes.INSERT }
+          );
+        }
+      } else {
+        await sequelize.query(
+          `INSERT INTO quiz_has_tag (quiz_id, tag_id) VALUES (${newQuiz.id}, ${tag});`,
+          { type: QueryTypes.INSERT }
+        );
+      }
 
-      res.render("profile/quizzesProfile");
+      res.redirect("/profile/quizzes");
     } catch (error) {
       console.error(error);
       res.status(500).send(error.message);

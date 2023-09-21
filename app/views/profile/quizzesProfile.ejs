@@ -14,19 +14,25 @@
       </ul>
     </nav>
   </div>
-
   <h2>Mes quizs</h2>
-  <% if (locals.error) { %>
-    <%- include("../partials/error") %>
-  <% } else { %>
-  <ul>
+
+  <% if (locals.error) { %> <%- include("../partials/error") %> <% } else { %>
+  <ul class="mb-4">
     <% for (const quiz of quizzes) { %>
-    <li>
-      <div>
-        <h3><%= quiz.title %></h3>
-        <span>Voir le quiz</span>
-      </div>
-    </li>
+    <a class="text-decoration-none" href="/profile/quiz/<%= quiz.id %>">
+      <li class="quizzes bg-primary p-4 mb-2 text-white">
+        <div class="d-flex justify-content-start align-items-start flex-column">
+          <h3><%= quiz.title %></h3>
+          <p>Nombre de questions : <span></span></p>
+        </div>
+        <ul class="list-unstyled mb-4 p-0">
+          <% for (const tag of quiz.tagsList) { %>
+          <li class="badge bg-primary"><%= tag.name %></li>
+          <% } %>
+        </ul>
+        <div class="button button--false mt-3">Voir le quiz</div>
+      </li>
+    </a>
     <% } %>
   </ul>
   <% } %>

@@ -16,7 +16,7 @@ router.get("/tags", memberMiddleware, mainController.tagPage);
 
 // Signup
 router.get("/signup", userController.signUpPage);
-router.post("/signup", userController.addNewUser);
+router.post("/signup", userController.hundleNewUser);
 
 // Login
 router.get("/login", userController.loginPage);
@@ -28,7 +28,7 @@ router.get("/profile", memberMiddleware, profileController.profilePage);
 router.post("/profile/edit", memberMiddleware, profileController.hundleProfileEdit);
 router.get("/profile/quizzes", memberMiddleware, profileController.profileQuizzesPage);
 router.get("/profile/quizzes/add", memberMiddleware, profileController.quizAddPage);
-router.post("/profile/quizzes/add", memberMiddleware, profileController.hundleQuizAdd);
+router.post("/profile/quiz/add", memberMiddleware, profileController.hundleQuizAdd);
 router.get("/profile/score", memberMiddleware, profileController.profileScorePage);
 
 // Admin

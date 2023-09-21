@@ -15,7 +15,7 @@ const userController = {
     res.render("profile");
   },
 
-  async addNewUser(req, res, next) {
+  async hundleNewUser(req, res, next) {
     let error;
 
     const { firstname, lastname, email, password, confirmation } = req.body;
@@ -65,13 +65,14 @@ const userController = {
       });
 
       await newUser.save();
+
+      res.redirect("/login");
     } catch (error) {
       console.error(error);
       res.status(500).send(error.message);
       next();
     }
 
-    res.redirect("/login");
   },
 
   async hundleLogin(req, res) {
