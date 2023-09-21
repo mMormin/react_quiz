@@ -31,7 +31,10 @@ Oriented object programmation project with MVC arch and some node packages.
 15. [Pages Roles Restrictions](https://github.com/O-clock-Cheesecake/oQuiz-mMormin/commit/4bd396640403404bca9e608e070543b256173019)
 16. [Admin Update controller](https://github.com/O-clock-Cheesecake/oQuiz-mMormin/commit/d635e8f6d184f68454c55995312d29032b624864)
 17. (WIP | profile CRUD Quiz Controller)
-18. (goodAnswer hundle + score + quiz timer)
+18. CRUD QUIZ QUESTIONS
+19. GOOD ANSWER VALIDATION
+20. QUIZ TIMER (question by question)
+21. SCORE (by quiz, all members, profile etc.)
 <br/>
 
 ## Hotlinks
