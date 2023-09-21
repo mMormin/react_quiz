@@ -16,7 +16,6 @@ h2 {
 }
 
 h4 {
-  padding-top: 1rem;
   margin: 0;
 }
 
@@ -113,6 +112,16 @@ form.p-5 {
 
 .button {
   width: 100%;
+}
+
+.button--remove {
+  background-color: red;
+  border: 2px solid red;
+}
+
+.button--remove:hover {
+  color: red;
+  border: 2px solid red;
 }
 
 .button--add {

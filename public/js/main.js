@@ -1,7 +1,9 @@
 $(document).ready(function () {
   const editButton = $(".button--edit");
+  const tagsList = $(".tags__list");
+  const tagsSelect = $(".tags");
   const inputs = $("input.disabled");
-  const validateBtn = $("input.hidden")
+  const validateBtn = $("input.hidden");
 
   inputs.prop("disabled", true);
 
@@ -10,6 +12,9 @@ $(document).ready(function () {
     inputs.prop("disabled", false, !inputs.prop("disabled", true));
     $(this).prop("disabled", true, !$(this).prop("disabled", false));
     inputs.val("");
-    validateBtn.toggle();
+    tagsList.hide();
+    tagsSelect.show();
+    validateBtn.show();
+    $(this).hide();
   });
 });
