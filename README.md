@@ -32,7 +32,7 @@ Oriented object programmation project with MVC arch and some node packages.
 16. [Admin Update controller](https://github.com/O-clock-Cheesecake/oQuiz-mMormin/commit/d635e8f6d184f68454c55995312d29032b624864)
 17. [Profile User Edit](https://github.com/O-clock-Cheesecake/oQuiz-mMormin/commit/d4175a6bb66ab9c1b851c2036368ed228e9b512c)
 18. [Quiz CRUD](https://github.com/O-clock-Cheesecake/oQuiz-mMormin/commit/4ddd138b44e1b847ec023d8bfad5c312162bbeef)
-19. CRUD QUIZ QUESTIONS
+19. (WIP | QUESTIONS CRUD with Answers and good answer)
 20. GOOD ANSWER VALIDATION
 21. QUIZ TIMER (question by question)
 22. SCORE (by quiz, all members, profile etc.)
