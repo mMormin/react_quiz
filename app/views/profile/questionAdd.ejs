@@ -1,0 +1,70 @@
+<%- include("../partials/header") %> <%- include("../partials/nav") %>
+
+<main class="container py-4">
+  <div class="d-flex justify-content-between align-items-center mt-4 mb-5">
+    <h1>MON PROFIL</h1>
+
+    <nav class="w-25">
+      <ul class="profile__menu d-flex justify-content-around bg-primary">
+        <li><a class="text-white" href="/profile">Profil</a></li>
+        <li>
+          <a class="active text-white" href="/profile/quizzes">Mes quizs</a>
+        </li>
+        <li><a class="text-white" href="/profile/score">Mes scores</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <form class="p-5" action="/profile/quiz/<%= quiz.id %>/question/add" method="POST">
+    <h2>Ajout d'une question</h2>
+    <% if (locals.error) { %> <%- include("../partials/error") %> <% } %>
+    <label class="form-label h4 mb-3" for="description">Titre</label>
+    <input
+      class="form-control mb-4"
+      type="text"
+      id="description"
+      name="description"
+      placeholder="Quel est le muscle ?"
+      required
+    />
+
+    <label class="form-label h4 mb-3" for="anecdote">Description</label>
+    <input
+      class="form-control mb-4"
+      type="text"
+      id="anecdote"
+      name="anecdote"
+      placeholder="Le plus petit muscle est..."
+    />
+
+    <label class="form-label h4 mb-3" for="wiki">Lien wiki</label>
+    <input
+      class="form-control mb-4"
+      type="url"
+      id="wiki"
+      name="wiki"
+      placeholder="https://fr.wikipedia.org/wiki/Muscle"
+    />
+
+    <fieldset>
+      <legend class="form-label h4 mb-3">Difficulté</legend>
+
+      <select class="levels w-100" name="level" id="level">
+        <% for (const level of levels) { %>
+        <option class="levels__tag" value="<%= level.id %>"><%= level.name %></option>
+        <% } %>
+      </select>
+    </fieldset>
+
+    <div class="answers__container mb-3">
+      <div class="answers__bar mt-3 hidden"></div>
+      <h3 class="answer__title my-4 hidden">Nouvelles réponses</h3>
+      <div class="answers__wrapper"></div>
+    </div>
+    <button class="button button--add-answer">Ajouter une nouvelle réponse</button>
+
+    <input class="button my-4 mx-auto" type="submit" value="Valider la question" />
+  </form>
+</main>
+
+<%- include("../partials/footer") %>

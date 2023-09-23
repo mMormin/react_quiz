@@ -15,64 +15,42 @@
     </nav>
   </div>
 
-  <h2>Edition d'un quiz</h2>
+  <h2>Mes Quizs</h2>
 
-  <% if (locals.error) { %> <%- include("../partials/error") %> <% } else { %>
-  <form class="p-5" action="/profile/quiz/<%= quiz.id %>/edit" method="POST">
+  <form class="p-5" action="/profile/quiz/add" method="POST">
+    <h2>Ajout d'un quiz</h2>
+    <% if (locals.error) { %> <%- include("../partials/error") %> <% } %>
     <label class="form-label h4 mb-3" for="title">Titre</label>
     <input
-      class="form-control mb-4 disabled"
+      class="form-control mb-4"
       type="text"
       id="title"
       name="title"
-      placeholder="<%= quiz.title %>"
-      value="<%= quiz.title %>"
+      placeholder="Les personnages de The Expanse"
+      required
     />
 
     <label class="form-label h4 mb-3" for="description">Description</label>
     <input
-      class="form-control mb-4 disabled"
+      class="form-control mb-4"
       type="text"
       id="description"
       name="description"
-      placeholder="<%= quiz.description %>"
-      value="<%= quiz.description %>"
+      placeholder="Au début des années 90..."
     />
 
     <fieldset>
       <legend class="form-label h4 mb-3">Catégorie(s)</legend>
 
-      <ul class="tags__list list-unstyled mb-4 p-0">
-        <% for (const tag of quiz.tagsList) { %>
-        <li class="badge bg-primary"><%= tag.name %></li>
-        <% } %>
-      </ul>
-
-      <select class="tags w-100 hidden" name="tag" id="tag" multiple>
+      <select class="tags w-100" name="tag" id="tag" multiple>
         <% for (const tag of tags) { %>
         <option class="tags__tag" value="<%= tag.id %>"><%= tag.name %></option>
         <% } %>
       </select>
     </fieldset>
 
-    <button class="button button--edit mb-4">Modifier le quiz</button>
-    <input
-      class="button my-4 mx-auto hidden"
-      type="submit"
-      value="Valider le quiz"
-    />
-    <a class="button mb-4" href="/profile/quiz/edit/<%= quiz.id %>">
-      Ajouter des question
-    </a>
-    <a
-      href="#deleteQuizModal"
-      class="button button--remove mb-4"
-      data-toggle="modal"
-    >
-      Supprimer le quiz
-    </a>
+    <input class="button my-4 mx-auto" type="submit" value="Ajouter" />
   </form>
-  <%- include("../partials/modals/deleteModal", { quiz }) %> <% } %>
 </main>
 
 <%- include("../partials/footer") %>

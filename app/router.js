@@ -4,6 +4,7 @@ const mainController = require("./controllers/mainController");
 const userController = require("./controllers/userController");
 const adminController = require("./controllers/adminController");
 const profileController = require("./controllers/profileController");
+const profileQuizController = require("./controllers/quizController");
 const adminMiddleware = require("./middlewares/memberMdw");
 const memberMiddleware = require("./middlewares/memberMdw");
 
@@ -27,12 +28,16 @@ router.get("/logout", userController.hundleLogout);
 router.get("/profile", memberMiddleware, profileController.profilePage);
 router.post("/profile/edit", memberMiddleware, profileController.hundleProfileEdit);
 router.get("/profile/quizzes", memberMiddleware, profileController.quizzesPage);
-router.get("/profile/quizzes/add", memberMiddleware, profileController.quizAddPage);
-router.post("/profile/quiz/add", memberMiddleware, profileController.hundleQuizAdd);
-router.post("/profile/quiz/:id/edit", memberMiddleware, profileController.hundleQuizEdit);
-router.post("/profile/quiz/:id/delete", memberMiddleware, profileController.hundleQuizDelete);
+router.get("/profile/quizzes/add", memberMiddleware, profileQuizController.quizAddPage);
+router.post("/profile/quiz/add", memberMiddleware, profileQuizController.hundleQuizAdd);
+router.post("/profile/quiz/:id/edit", memberMiddleware, profileQuizController.hundleQuizEdit);
+router.post("/profile/quiz/:id/delete", memberMiddleware, profileQuizController.hundleQuizDelete);
 router.get("/profile/quiz/:id", memberMiddleware, profileController.quizPage);
 router.get("/profile/score", memberMiddleware, profileController.profileScorePage);
+// Profile Questions
+router.get("/profile/quiz/:id/questions", memberMiddleware, profileQuizController.questionsPage);
+router.get("/profile/quiz/:id/questions/add", memberMiddleware, profileQuizController.questionAddPage);
+router.post("/profile/quiz/:id/question/add", memberMiddleware, profileQuizController.hundleQuestionAdd);
 
 // Admin
 router.get("/admin/users", adminMiddleware, adminController.userPage);
