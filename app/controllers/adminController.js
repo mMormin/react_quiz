@@ -54,11 +54,7 @@ const adminController = {
     let { editFirstname, editLastname, editEmail, editPassword } = req.body;
 
     try {
-      const user = await User.findOne({
-        where: {
-          id,
-        },
-      });
+      const user = await User.findByPk(id);
 
       if (!user) {
         return res.render("/admin/users", { error: "failure" });
@@ -99,11 +95,7 @@ const adminController = {
 
     console.log(id);
     try {
-      const user = await User.findOne({
-        where: {
-          id,
-        },
-      });
+      const user = await User.findByPk(id);
 
       if (!user) {
         return res.render("/admin/users", { error: "failure" });
@@ -164,11 +156,7 @@ const adminController = {
     let { editTitle, editDescription } = req.body;
 
     try {
-      const quiz = await Quiz.findOne({
-        where: {
-          id,
-        },
-      });
+      const quiz = await Quiz.findByPk(id);
 
       if (!quiz) {
         return res.render("/admin/quizzes", { error: "failure" });
@@ -197,35 +185,32 @@ const adminController = {
     }
   },
 
-  async rawQuery(req, res, next) {
-    
-  },
-
   async hundleQuizDelete(req, res, next) {
     const { id } = req.params;
 
     try {
-      const quiz = await Quiz.findOne({
-        where: {
-          id,
-        },
+      await sequelize.transaction(async (t) => {
+        await sequelize.query(
+          `ALTER TABLE "answer" DROP CONSTRAINT answer_question_id_fkey`,
+          { type: QueryTypes.RAW, transaction: t }
+        );
+
+        await sequelize.query(
+          `DELETE FROM quiz WHERE id = ${id}`,
+          { type: QueryTypes.DELETE, transaction: t }
+        );
+
+        await sequelize.query(
+          `ALTER TABLE "answer" ADD CONSTRAINT answer_question_id_fkey FOREIGN KEY ("question_id") REFERENCES "answer"("id") ON DELETE SET NULL`,
+          { type: QueryTypes.RAW, transaction: t }
+        );
       });
-      if (!quiz) {
-        return res.render("/admin/quizzes", { error: "failure" });
-      }
-      const constraintDrop = await sequelize.query(
-        `ALTER TABLE "answer" DROP CONSTRAINT answer_question_id_fkey`,
-        { type: QueryTypes.RAW }
-      );
-      const destroy = await quiz.destroy();
-      const constraintAdd = await sequelize.query(
-        `ALTER TABLE "answer" ADD CONSTRAINT answer_question_id_fkey FOREIGN KEY ("question_id") REFERENCES "answer"("id") ON DELETE SET NULL`,
-        { type: QueryTypes.RAW }
-      );
+      
+      // const quiz = await Quiz.findByPk(id);
 
-      const promises = [quiz, constraintDrop, destroy, constraintAdd];
-
-      await Promise.allSettled(promises);
+      // if (quiz) {
+      //   return res.render("/admin/quizzes", { error: "failure" });
+      // }
 
       res.redirect("/admin/quizzes");
     } catch (error) {
@@ -311,11 +296,7 @@ const adminController = {
     const { id } = req.params;
 
     try {
-      const tag = await Tag.findOne({
-        where: {
-          id,
-        },
-      });
+      const tag = await Tag.findByPk(id);
 
       if (!tag) {
         return res.render("/admin/tags", { error: "failure" });

@@ -169,7 +169,6 @@ const profileController = {
         where: {
           id,
         },
-        include: ["tagsList"],
       });
 
       if (!quiz) {
@@ -184,27 +183,34 @@ const profileController = {
         description = quiz.description;
       }
 
+      if (tag) {
+        await sequelize.transaction(async (t) => {
+          await sequelize.query(
+            `DELETE FROM quiz_has_tag WHERE quiz_id = ${quiz.id}`,
+            {
+              type: QueryTypes.DELETE,
+              transaction: t,
+            }
+          );
+
+          for (const oneTag of tag) {
+            await sequelize.query(
+              `INSERT INTO quiz_has_tag (quiz_id, tag_id) VALUES (${quiz.id}, ${oneTag})`,
+              {
+                type: QueryTypes.INSERT,
+                transaction: t,
+              }
+            );
+          }
+        });
+      }
+
       quiz.set({
         title,
         description,
       });
 
       await quiz.save();
-
-      // if (Array.isArray(tag)) {
-      //   for (let i = 0; i < tag.length; ++i) {
-      //     const oneTag = tag[i];
-      //     await sequelize.query(
-      //       `UPDATE quiz_has_tag SET tag_id = ${oneTag}) WHERE id = ${tag.id};`,
-      //       { type: QueryTypes.UPDATE }
-      //     );
-      //   }
-      // } else {
-      //   await sequelize.query(
-      //     `UPDATE quiz_has_tag SET tag_id = ${tag}) WHERE id = ${this.tag.id};`,
-      //     { type: QueryTypes.UPDATE }
-      //   );
-      // }
 
       res.redirect(`/profile/quiz/${id}`);
     } catch (error) {
