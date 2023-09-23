@@ -7,6 +7,8 @@ $(document).ready(function () {
   const hiddenElement = $(".hidden");
   const answersWrapper = $(".answers__wrapper");
   const addAnswerButton = $(".button--add-answer");
+  const goodAnswerButton = $(".goodAnswer");
+  let i = 0;
 
   inputs.prop("disabled", true);
 
@@ -21,22 +23,22 @@ $(document).ready(function () {
     $(this).hide();
   });
 
-  let i = 0;
   addAnswerButton.click(function (e) {
     e.preventDefault();
     i++;
     hiddenElement.show();
     newInput =
+      `<div class="form-group">` +
       `<label class="form-label h4 mb-3" for="answer${i}">Réponse ${i}</label>` +
-      `<input class="form-control mb-4" name="answers" type="text" id="answer${i}" placeholder="Je suis la réponse ${i}" required/>`;
+      `<input class="form-control mb-4" name="answers" type="text" id="answer${i}" placeholder="Je suis la réponse ${i}" required />` +
+      `<span class="goodAnswer material-icons">done</span>` +
+      `</div>`;
     answersWrapper.append(newInput);
   });
 
-  goodAnswerButton.click(function (e) {
-    //const input = $(".button--edit");
-    if(isTextInput(goodAnswerButton.nextElementSibling())) {
-      $(this).attr('name', 'goodAnswer');
-    }
+  $(document).on("click", ".goodAnswer", function (e) {
+    e.preventDefault();
+    console.log("first");
+    $(this).prev().attr("name", "goodAnswer").addClass("goodInput");
   });
-
 });

@@ -220,7 +220,7 @@ const quizController = {
       });
 
       const newAnswer = new Answer({
-        description : goodAnswer
+        description: goodAnswer
       })
      
       const newQuestion = new Question({
@@ -229,11 +229,10 @@ const quizController = {
         wiki,
         quiz_id,
         level_id: level,
-        answer_id: this.newAnswer.id
+        answer_id: newAnswer.id
       });
 
       await newAnswer.save();
-      
       await newQuestion.save();
 
       res.redirect(`/profile/quiz/${quiz_id}/questions`);
