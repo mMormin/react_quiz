@@ -1,6 +1,7 @@
 # Building a quiz App :boom:
 
 ## What's in there ?
+
 Oriented object programmation project with MVC arch and some node packages.
 - [node](https://nodejs.org/fr)
 - [dotenv](https://www.npmjs.com/package/dotenv)
@@ -10,6 +11,44 @@ Oriented object programmation project with MVC arch and some node packages.
 - [ejs](https://www.npmjs.com/package/ejs)
 - [express-session](https://www.npmjs.com/package/express-session)
 - [email validator](https://www.npmjs.com/package/email-validator)
+
+<br/>
+
+## How to check this out ?
+
+*Don't forget to create the table (and the user that owns the table ofc).*
+
+Install the dependencies
+```bash
+npm i
+```
+
+Create and populate the database
+```bash
+npm run db:rebuild
+```
+
+Launch the server
+```bash
+npm start
+```
+
+Launch the server
+```bash
+npm start
+```
+
+<br/>
+
+Admin account Logs
+
+email : **admin@admin.io**
+
+password : **Azerty92!**
+
+<br/>
+
+**Enjoie!**
 
 <br/>
 
@@ -36,6 +75,7 @@ Oriented object programmation project with MVC arch and some node packages.
 20. GOOD ANSWER VALIDATION
 21. QUIZ TIMER (question by question)
 22. SCORE (by quiz, all members, profile etc.)
+
 <br/>
 
 ## Hotlinks

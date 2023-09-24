@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon",
-    "db:create": "psql -U oquiz -d oquiz -f data/create_tables.sql",
-    "db:populate": "psql -U oquiz -d oquiz -f data/populate_tables.sql",
+    "db:create": "psql -U oquiz -d oquiz -f database/create_tables.sql",
+    "db:populate": "psql -U oquiz -d oquiz -f database/populate_tables.sql",
     "db:rebuild": "npm run db:create && npm run db:populate"
   },
   "author": "mMormin",
