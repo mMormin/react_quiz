@@ -33,22 +33,15 @@ Launch the server
 npm start
 ```
 
-Launch the server
-```bash
-npm start
-```
+**Enjoie!**
 
 <br/>
 
-Admin account Logs
+## Admin account Logs
 
 email : **admin@admin.io**
 
 password : **Azerty92!**
-
-<br/>
-
-**Enjoie!**
 
 <br/>
 
