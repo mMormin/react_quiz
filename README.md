@@ -16,7 +16,7 @@ Oriented object programmation project with MVC arch and some node packages.
 
 ## How to check this out ?
 
-*Don't forget to create the table (and the user that owns the table ofc).*
+*Don't forget to create the **table**, the **user** that owns the table and to fill in the **.env file**.*
 
 Install the dependencies
 ```bash
