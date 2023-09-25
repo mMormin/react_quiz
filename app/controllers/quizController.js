@@ -227,28 +227,31 @@ const quizController = {
         ],
       });
 
-      const questions = await Question.findAll({
+      const question = await Question.findOne({
         where: {
-          id: id_qt
+          id: id_qt,
         },
-        include: [
-          {
-            association: "level",
-          },
-        ],
-      })
+        include: "level",
+      });
+
+      const levels = await Level.findAll();
 
       if (!quiz.questionsList.length) {
         return res.render("profile/questionEdit", {
           answers,
           quiz,
-          questionId: id_qt,
-          questions,
+          question,
+          levels,
           error: "failure",
         });
       }
 
-      res.render("profile/questionEdit", { answers, quiz, questionId: id_qt, questions });
+      res.render("profile/questionEdit", {
+        answers,
+        quiz,
+        question,
+        levels,
+      });
     } catch (error) {
       console.error(error);
       res.status(500).send(error.message);
@@ -292,8 +295,6 @@ const quizController = {
       newGoodAnswer.question_id = newQuestion.id;
       await newGoodAnswer.save();
 
-      console.log(answers[0]);
-
       for (let i = 0; i < answers.length; i++) {
         const answer = answers[i];
         await Answer.create({
@@ -303,6 +304,32 @@ const quizController = {
       }
 
       res.redirect(`/profile/quiz/${quiz_id}/questions`);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send(error.message);
+      next();
+    }
+  },
+
+  async hundleAnswerDelete(req, res, next) {
+    const { id_qz, id_qt } = req.params;
+
+    try {
+      const answer = await Answer.findByPk({
+        where: {
+          question_id: id_qt,
+        },
+      });
+
+      if (!answer) {
+        return res.render(`/profile/quiz/${id_qz}/question/${id_qt}/edit`, {
+          error: "failure",
+        });
+      }
+
+      await answer.destroy();
+
+      res.redirect(`/profile/quiz/${id_qz}/question/${id_qt}/edit`);
     } catch (error) {
       console.error(error);
       res.status(500).send(error.message);

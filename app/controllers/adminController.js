@@ -1,4 +1,3 @@
-const Answer = require("../models/answer");
 const Quiz = require("../models/quiz");
 const Tag = require("../models/tag");
 const User = require("../models/user");

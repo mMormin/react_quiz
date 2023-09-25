@@ -37,7 +37,8 @@ router.get("/profile/score", memberMiddleware, profileController.profileScorePag
 // Profile Questions
 router.get("/profile/quiz/:id/questions", memberMiddleware, profileQuizController.questionsPage);
 router.get("/profile/quiz/:id/questions/add", memberMiddleware, profileQuizController.questionAddPage);
-router.post("/profile/quiz/:id/question/add", memberMiddleware, profileQuizController.hundleQuestionAdd);
+router.post("/profile/quiz/:id_qz/question/:id_qt/answer", memberMiddleware, profileQuizController.hundleQuestionAdd);
+router.post("/profile/quiz/:id/question/add", memberMiddleware, profileQuizController.hundleAnswerDelete);
 router.get("/profile/quiz/:id_qz/question/:id_qt/edit", memberMiddleware, profileQuizController.questionEditPage);
 
 

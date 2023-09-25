@@ -17,7 +17,7 @@
 
   <form
     class="p-5"
-    action="/profile/quiz/<%= quiz.id %>/question/<%= questionId %>/edit"
+    action="/profile/quiz/<%= quiz.id %>/question/<%= question.id %>/edit"
     method="POST"
   >
     <h2>Edition d'une question</h2>
@@ -28,7 +28,7 @@
       type="text"
       id="description"
       name="description"
-      placeholder="<%= question.title %>"
+      placeholder="<%= question.description %>"
       required
     />
 
@@ -38,7 +38,7 @@
       type="text"
       id="anecdote"
       name="anecdote"
-      placeholder="<%= question.description %>"
+      placeholder="<%= question.anecdote %>"
     />
 
     <label class="form-label h4 mb-3" for="wiki">Lien wiki</label>
@@ -54,13 +54,13 @@
       <legend class="form-label h4 mb-3">Difficulté</legend>
       <p><%= question.level.name %></p>
 
-      <!-- <select class="levels w-100" name="level" id="level">
+      <select class="levels w-100 hidden" name="level" id="level">
         <% for (const level of levels) { %>
         <option class="levels__tag" value="<%= level.id %>">
           <%= level.name %>
         </option>
         <% } %>
-      </select> -->
+      </select>
     </fieldset>
 
     <div class="answers__container mb-3">
