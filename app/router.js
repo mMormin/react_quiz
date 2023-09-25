@@ -38,6 +38,8 @@ router.get("/profile/score", memberMiddleware, profileController.profileScorePag
 router.get("/profile/quiz/:id/questions", memberMiddleware, profileQuizController.questionsPage);
 router.get("/profile/quiz/:id/questions/add", memberMiddleware, profileQuizController.questionAddPage);
 router.post("/profile/quiz/:id/question/add", memberMiddleware, profileQuizController.hundleQuestionAdd);
+router.get("/profile/quiz/:id_qz/question/:id_qt/edit", memberMiddleware, profileQuizController.questionEditPage);
+
 
 // Admin
 router.get("/admin/users", adminMiddleware, adminController.userPage);

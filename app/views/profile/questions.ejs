@@ -19,10 +19,10 @@
   <% if (locals.error) { %> <%- include("../partials/error") %> <% } else { %>
   <ul class="mb-4">
     <% for (const question of quiz.questionsList) { %>
-    <a class="text-decoration-none" href="/profile/quiz/<%= quiz.id %>/questions/edit">
+    <a class="text-decoration-none" href="/profile/quiz/<%= quiz.id %>/question/<%= question.id %>/edit">
       <li class="quizzes bg-primary p-4 mb-2 text-white">
         <div class="d-flex justify-content-start align-items-start flex-column">
-          <h3><%= question.title %></h3>
+          <h3><%= question.description %></h3>
         </div>
       </li>
     </a>

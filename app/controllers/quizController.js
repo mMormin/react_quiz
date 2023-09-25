@@ -45,6 +45,8 @@ const quizController = {
         user_id,
       });
 
+      await newQuiz.save();
+
       for (const oneTag of tag) {
         await sequelize.query(
           `INSERT INTO quiz_has_tag (quiz_id, tag_id) VALUES (${newQuiz.id}, ${oneTag});`,
@@ -53,8 +55,6 @@ const quizController = {
           }
         );
       }
-
-      await newQuiz.save();
 
       res.redirect("/profile/quizzes");
     } catch (error) {
@@ -164,7 +164,7 @@ const quizController = {
         ],
       });
 
-      if (!quiz.questionsLists) {
+      if (!quiz.questionsList) {
         return res.render(`profile/questions`, { quiz, error: "noQuestions" });
       }
 
@@ -176,7 +176,7 @@ const quizController = {
     }
   },
 
-  async questionAddPage(req, res) {
+  async questionAddPage(req, res, next) {
     const { id } = req.params;
     const user_id = res.locals.user.id;
 
@@ -198,8 +198,67 @@ const quizController = {
     }
   },
 
+  async questionEditPage(req, res, next) {
+    const { id_qz, id_qt } = req.params;
+    const user_id = res.locals.user.id;
+
+    try {
+      const quiz = await Quiz.findOne({
+        where: {
+          id: id_qz,
+          user_id,
+        },
+        include: [
+          {
+            association: "questionsList",
+            include: ["answersList", { association: "level" }],
+          },
+        ],
+      });
+
+      const answers = await Answer.findAll({
+        where: {
+          question_id: id_qt,
+        },
+        include: [
+          {
+            association: "validates",
+          },
+        ],
+      });
+
+      const questions = await Question.findAll({
+        where: {
+          id: id_qt
+        },
+        include: [
+          {
+            association: "level",
+          },
+        ],
+      })
+
+      if (!quiz.questionsList.length) {
+        return res.render("profile/questionEdit", {
+          answers,
+          quiz,
+          questionId: id_qt,
+          questions,
+          error: "failure",
+        });
+      }
+
+      res.render("profile/questionEdit", { answers, quiz, questionId: id_qt, questions });
+    } catch (error) {
+      console.error(error);
+      res.status(500).send(error.message);
+      next();
+    }
+  },
+
   async hundleQuestionAdd(req, res, next) {
-    const { description, anecdote, wiki, level, answers, goodAnswer } = req.body;
+    const { description, anecdote, wiki, level, answers, goodAnswer } =
+      req.body;
     const quiz_id = req.params.id;
 
     try {
@@ -214,62 +273,34 @@ const quizController = {
           error: "answers",
         });
       }
-      
-      await answers.forEach((answer) => {
-        Answer.create({  description: answer})
-      });
 
-      const newAnswer = new Answer({
-        description: goodAnswer
-      })
-     
-      const newQuestion = new Question({
+      const newQuestion = await Question.create({
         description,
         anecdote,
         wiki,
         quiz_id,
         level_id: level,
-        answer_id: newAnswer.id
       });
 
-      await newAnswer.save();
+      const newGoodAnswer = await Answer.create({
+        description: goodAnswer,
+      });
+
+      newQuestion.answer_id = newGoodAnswer.id;
       await newQuestion.save();
 
-      res.redirect(`/profile/quiz/${quiz_id}/questions`);
-    } catch (error) {
-      console.error(error);
-      res.status(500).send(error.message);
-      next();
-    }
-  },
+      newGoodAnswer.question_id = newQuestion.id;
+      await newGoodAnswer.save();
 
-  async hundleAnswerAdd(req, res, next) {
-    const answers = [];
-    const quiz_id = req.params.id;
+      console.log(answers[0]);
 
-    try {
-      if (!description) {
-        return res.render("profile/questionAdd", {
-          error: "questionTitle",
+      for (let i = 0; i < answers.length; i++) {
+        const answer = answers[i];
+        await Answer.create({
+          description: answer,
+          question_id: newQuestion.id,
         });
       }
-
-      answers.forEach((answer) => {
-        const newAnswer = new Answer({
-          description: answer,
-        });
-      });
-
-      const newQuestion = new Question({
-        description,
-        anecdote,
-        wiki,
-        quiz_id,
-        level_id: level,
-      });
-
-      await newAnswer.save();
-      await newQuestion.save();
 
       res.redirect(`/profile/quiz/${quiz_id}/questions`);
     } catch (error) {

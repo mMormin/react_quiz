@@ -44,7 +44,7 @@ Admin account Logs
 
 email : **admin@admin.io**
 
-password : **Azerty92!**
+password : **azerty**
 
 <br/>
 

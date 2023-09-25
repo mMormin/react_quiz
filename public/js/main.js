@@ -38,7 +38,6 @@ $(document).ready(function () {
 
   $(document).on("click", ".goodAnswer", function (e) {
     e.preventDefault();
-    console.log("first");
     $(this).prev().attr("name", "goodAnswer").addClass("goodInput");
   });
 });
