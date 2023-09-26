@@ -1,7 +1,7 @@
 <div id="deleteQuizModal" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
-      <form action="/profile/quiz/<%= quiz.id %>/delete/" method="POST">
+      <form action="/profile/quizs/<%= quiz.id %>/delete" method="POST">
         <div class="modal-header">
           <h4 class="modal-title">Suppression de <b><%= quiz.title %></b></h4>
           <button

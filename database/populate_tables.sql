@@ -739,9 +739,9 @@ INSERT INTO "answer" ("id", "description", "question_id") VALUES
 -- Déchargement des données de la table "users"
 -- ----------------------------------------
 INSERT INTO "user" ("id", "firstname", "lastname", "email", "password", "role") VALUES
-(1, 'Philippe', 'Candille', 'philippe@oclock.io', '$2b$10$7vwYGrz2TGeyG4X8YnD9BOag9I.YKGUTJELs64qGmcK/syHu2BzTG', 'member'),
+(1, 'Philippe', 'Candille', 'philippe@oclock.io', '$2a$10$Q501rTdl4WJHpmHTcNhJXuNl2k7e1YRuhfq1hAY9IuZNbMqnQQwZ6', 'member'),
 (2, 'Michelle', 'Admin', 'admin@admin.io', '$2a$10$Q501rTdl4WJHpmHTcNhJXuNl2k7e1YRuhfq1hAY9IuZNbMqnQQwZ6', 'admin'),
-(3, 'Chuck', 'Norris', 'chuck@oclock.io', '$2b$10$7vwYGrz2TGeyG4X8YnD9BOag9I.YKGUTJELs64qGmcK/syHu2BzTG', 'admin');
+(3, 'Chuck', 'Norris', 'chuck@oclock.io', '$2a$10$Q501rTdl4WJHpmHTcNhJXuNl2k7e1YRuhfq1hAY9IuZNbMqnQQwZ6', 'admin');
 
 -- ----------------------------------------
 -- Déchargement des données de la table "levels"

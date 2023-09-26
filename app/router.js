@@ -34,14 +34,14 @@ router.post("/profile", memberMiddleware, profileController.hundleProfileUpdate)
 router.get("/profile/quiz", memberMiddleware, quizController.newQuizPage);
 router.post("/profile/quizs", memberMiddleware, quizController.hundleNewQuiz);
 router.post("/profile/quizs/:id", memberMiddleware, quizController.hundleQuizUpdate);
-router.delete("/profile/quizs/:id", memberMiddleware, quizController.hundleQuizDelete);
+router.post("/profile/quizs/:id/delete", memberMiddleware, quizController.hundleQuizDelete);
 
 // Profile Questions
 router.get("/profile/quizs/:id/questions", memberMiddleware, quizController.questionsPage);
 router.get("/profile/quizs/:quiz_id/questions/:question_id", memberMiddleware, quizController.questionPage);
 router.get("/profile/quizs/:id/question", memberMiddleware, quizController.newQuestionPage);
 router.post("/profile/quizs/:quiz_id/questions", memberMiddleware, quizController.hundleNewQuestion);
-router.delete("/profile/quizs/:quiz_id/questions/:question_id", memberMiddleware, quizController.hundleAnswerDelete);
+router.post("/profile/quizs/:quiz_id/questions/:question_id/delete", memberMiddleware, quizController.hundleAnswerDelete);
 
 
 // Admin
