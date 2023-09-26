@@ -8,7 +8,7 @@
       <ul class="profile__menu d-flex justify-content-around bg-primary">
         <li><a class="text-white" href="/profile">Profil</a></li>
         <li>
-          <a class="active text-white" href="/profile/quizzes">Mes quizs</a>
+          <a class="active text-white" href="/profile/quizs">Mes quizs</a>
         </li>
         <li><a class="text-white" href="/profile/score">Mes scores</a></li>
       </ul>
@@ -17,7 +17,7 @@
 
   <form
     class="p-5"
-    action="/profile/quiz/<%= quiz.id %>/question/<%= question.id %>/edit"
+    action="/profile/quizs?quiz_id=/<%= quiz.id %>/questions?question_id=/<%= question.id %>"
     method="POST"
   >
     <h2>Edition d'une question</h2>

@@ -8,14 +8,14 @@
       <ul class="profile__menu d-flex justify-content-around bg-primary">
         <li><a class="text-white" href="/profile">Profil</a></li>
         <li>
-          <a class="active text-white" href="/profile/quizzes">Mes quizs</a>
+          <a class="active text-white" href="/profile/quizs">Mes quizs</a>
         </li>
         <li><a class="text-white" href="/profile/score">Mes scores</a></li>
       </ul>
     </nav>
   </div>
 
-  <form class="p-5" action="/profile/quiz/<%= quiz.id %>/question/add" method="POST">
+  <form class="p-5" action="/profile/quizs?quiz_id=/<%= quiz.id %>/question" method="POST">
     <h2>Ajout d'une question</h2>
     <% if (locals.error) { %> <%- include("../partials/error") %> <% } %>
     <label class="form-label h4 mb-3" for="description">Titre</label>

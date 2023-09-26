@@ -8,7 +8,7 @@
       <ul class="profile__menu d-flex justify-content-around bg-primary">
         <li><a class="text-white" href="/profile">Profil</a></li>
         <li>
-          <a class="active text-white" href="/profile/quizzes">Mes quizs</a>
+          <a class="active text-white" href="/profile/quizs">Mes quizs</a>
         </li>
         <li><a class="text-white" href="/profile/score">Mes scores</a></li>
       </ul>
@@ -19,7 +19,7 @@
   <% if (locals.error) { %> <%- include("../partials/error") %> <% } else { %>
   <ul class="mb-4">
     <% for (const quiz of quizzes) { %>
-    <a class="text-decoration-none" href="/profile/quiz/<%= quiz.id %>">
+    <a class="text-decoration-none" href="/profile/quizs?quiz_id=/<%= quiz.id %>/">
       <li class="quizzes bg-primary p-4 mb-2 text-white">
         <div class="d-flex justify-content-start align-items-start flex-column">
           <h3><%= quiz.title %></h3>
@@ -36,7 +36,7 @@
     <% } %>
   </ul>
   <% } %>
-  <a class="button button--add" href="/profile/quizzes/add">Ajouter un quizz</a>
+  <a class="button button--add" href="/profile/quizs/add">Ajouter un quizz</a>
 </main>
 
 <%- include("../partials/footer") %>

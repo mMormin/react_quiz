@@ -8,7 +8,7 @@
       <ul class="profile__menu d-flex justify-content-around bg-primary">
         <li><a class="text-white" href="/profile">Profil</a></li>
         <li>
-          <a class="active text-white" href="/profile/quizzes">Mes quizs</a>
+          <a class="active text-white" href="/profile/quizs">Mes quizs</a>
         </li>
         <li><a class="text-white" href="/profile/score">Mes scores</a></li>
       </ul>
@@ -17,7 +17,7 @@
 
   <h2>Mes Quizs</h2>
 
-  <form class="p-5" action="/profile/quiz/add" method="POST">
+  <form class="p-5" action="/profile/quizs" method="POST">
     <h2>Ajout d'un quiz</h2>
     <% if (locals.error) { %> <%- include("../partials/error") %> <% } %>
     <label class="form-label h4 mb-3" for="title">Titre</label>

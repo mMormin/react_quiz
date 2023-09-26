@@ -1,4 +1,6 @@
-const { Quiz, Tag } = require("../models/assoc");
+const Tag = require("../models/tag");
+const Quiz = require("../models/quiz");
+
 
 const mainController = {
   async homePage(req, res, next) {
