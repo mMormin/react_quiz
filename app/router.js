@@ -4,7 +4,7 @@ const mainController = require("./controllers/mainController");
 const userController = require("./controllers/userController");
 const adminController = require("./controllers/adminController");
 const profileController = require("./controllers/profileController");
-const profileQuizController = require("./controllers/quizController");
+const quizController = require("./controllers/quizController");
 const adminMiddleware = require("./middlewares/memberMdw");
 const memberMiddleware = require("./middlewares/memberMdw");
 
@@ -21,25 +21,27 @@ router.post("/signup", userController.hundleNewUser);
 
 // Login
 router.get("/login", userController.loginPage);
-router.post("/login", userController.hundleLogin);
 router.get("/logout", userController.hundleLogout);
+router.post("/login", userController.hundleLogin);
 
 // Profile
 router.get("/profile", memberMiddleware, profileController.profilePage);
-router.post("/profile", memberMiddleware, profileController.hundleProfileEdit);
 router.get("/profile/quizs", memberMiddleware, profileController.quizzesPage);
-router.post("/profile/quizs", memberMiddleware, profileQuizController.hundleQuizAdd);
-router.get("/profile/quiz", memberMiddleware, profileQuizController.quizAddPage);
-router.post("/profile/quizs?quiz_id=:id", memberMiddleware, profileQuizController.hundleQuizEdit);
-router.delete("/profile/quizs?quiz_id=:id", memberMiddleware, profileQuizController.hundleQuizDelete);
-router.get("/profile/quizs?quiz_id=:id", memberMiddleware, profileController.quizPage);
+router.get("/profile/quizs/:id", memberMiddleware, profileController.quizPage);
 router.get("/profile/score", memberMiddleware, profileController.profileScorePage);
+router.post("/profile", memberMiddleware, profileController.hundleProfileUpdate);
+
+router.get("/profile/quiz", memberMiddleware, quizController.newQuizPage);
+router.post("/profile/quizs", memberMiddleware, quizController.hundleNewQuiz);
+router.post("/profile/quizs/:id", memberMiddleware, quizController.hundleQuizUpdate);
+router.delete("/profile/quizs/:id", memberMiddleware, quizController.hundleQuizDelete);
+
 // Profile Questions
-router.get("/profile/quizs?quiz_id=:id/questions", memberMiddleware, profileQuizController.questionsPage);
-router.get("/profile/quizs?quiz_id=:id/question", memberMiddleware, profileQuizController.questionAddPage);
-router.post("/profile/quizs?quiz_id=:id_qz/questions?question_id=:id_qt", memberMiddleware, profileQuizController.hundleQuestionAdd);
-router.post("/profile/quizs?quiz_id=:id/question", memberMiddleware, profileQuizController.hundleAnswerDelete);
-router.get("/profile/quiz/:id_qz/question/:id_qt/edit", memberMiddleware, profileQuizController.questionEditPage);
+router.get("/profile/quizs/:id/questions", memberMiddleware, quizController.questionsPage);
+router.get("/profile/quizs/:quiz_id/questions/:question_id", memberMiddleware, quizController.questionPage);
+router.get("/profile/quizs/:id/question", memberMiddleware, quizController.newQuestionPage);
+router.post("/profile/quizs/:quiz_id/questions", memberMiddleware, quizController.hundleNewQuestion);
+router.delete("/profile/quizs/:quiz_id/questions/:question_id", memberMiddleware, quizController.hundleAnswerDelete);
 
 
 // Admin

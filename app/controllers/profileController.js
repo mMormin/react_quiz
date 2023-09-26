@@ -7,7 +7,7 @@ const profileController = {
     res.render("profile/profile");
   },
 
-  async hundleProfileEdit(req, res, next) {
+  async hundleProfileUpdate(req, res, next) {
     const emailParam = res.locals.user.email;
     let { firstname, lastname, email } = req.body;
 
@@ -19,7 +19,7 @@ const profileController = {
       });
 
       if (!user.length) {
-        return res.render("/profile", { error: "failure" });
+        return res.render("profile/profile", { error: "failure" });
       }
 
       if (!firstname) {
@@ -40,7 +40,7 @@ const profileController = {
 
       await user.save();
 
-      res.redirect("/profile/profile");
+      res.redirect("/profile");
     } catch (error) {
       console.error(error);
       res.status(500).send(error.message);
@@ -61,13 +61,13 @@ const profileController = {
       });
 
       if (!quizzes.length) {
-        return res.render("profile/quizzes", {
+        return res.render("profile/quizzesList", {
           quizzes,
           error: "quizAdd",
         });
       }
 
-      res.render("profile/quizzes", { quizzes });
+      res.render("profile/quizzesList", { quizzes });
     } catch (error) {
       console.error(error);
       res.status(500).send(error.message);
@@ -93,8 +93,9 @@ const profileController = {
       if (!quiz) {
         return res.render("status", { status: "404" });
       }
+      
 
-      res.render("profile/quiz", { quiz, tags });
+      res.render("profile/oneQuiz", { quiz, tags });
     } catch (error) {
       console.error(error);
       res.status(500).send(error.message);

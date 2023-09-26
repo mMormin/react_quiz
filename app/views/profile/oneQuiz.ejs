@@ -18,7 +18,7 @@
   <h2>Edition d'un quiz</h2>
 
   <% if (locals.error) { %> <%- include("../partials/error") %> <% } else { %>
-  <form class="p-5" action="/profile/quizs?quiz_id=/<%= quiz.id %>" method="POST">
+  <form class="p-5" action="/profile/quizs/<%= quiz.id %>" method="POST">
     <label class="form-label h4 mb-3" for="title">Titre</label>
     <input
       class="form-control mb-4 disabled"
@@ -61,7 +61,7 @@
       type="submit"
       value="Valider le quiz"
     />
-    <a class="button mb-4" href="/profile/quizs?quiz_id=/<%= quiz.id %>/questions">
+    <a class="button mb-4" href="/profile/quizs/<%= quiz.id %>/questions">
       Voir les questions
     </a>
     <a

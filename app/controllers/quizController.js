@@ -7,7 +7,7 @@ const Question = require("../models/question.js");
 const Answer = require("../models/answer.js");
 
 const quizController = {
-  async quizAddPage(req, res, next) {
+  async newQuizPage(req, res, next) {
     try {
       const tags = await Tag.findAll();
       res.render("profile/quizAdd", { tags });
@@ -18,7 +18,7 @@ const quizController = {
     }
   },
 
-  async hundleQuizAdd(req, res, next) {
+  async hundleNewQuiz(req, res, next) {
     const { title, description, tag } = req.body;
     const user_id = res.locals.user.id;
 
@@ -64,7 +64,7 @@ const quizController = {
     }
   },
 
-  async hundleQuizEdit(req, res, next) {
+  async hundleQuizUpdate(req, res, next) {
     const { id } = req.params;
     let { title, description, tag } = req.body;
 
@@ -112,7 +112,7 @@ const quizController = {
 
       await quiz.save();
 
-      res.redirect(`/profile/quiz/${id}`);
+      res.redirect(`/profile/quizs/${id}`);
     } catch (error) {
       console.error(error);
       res.status(500).send(error.message);
@@ -165,10 +165,10 @@ const quizController = {
       });
 
       if (!quiz.questionsList) {
-        return res.render(`profile/questions`, { quiz, error: "noQuestions" });
+        return res.render("profile/questions", { quiz, error: "noQuestions" });
       }
 
-      res.render(`profile/questions`, { quiz });
+      res.render("profile/questions", { quiz });
     } catch (error) {
       console.error(error);
       res.status(500).send(error.message);
@@ -176,7 +176,7 @@ const quizController = {
     }
   },
 
-  async questionAddPage(req, res, next) {
+  async newQuestionPage(req, res, next) {
     const { id } = req.params;
     const user_id = res.locals.user.id;
 
@@ -198,14 +198,14 @@ const quizController = {
     }
   },
 
-  async questionEditPage(req, res, next) {
-    const { id_qz, id_qt } = req.params;
+  async questionPage(req, res, next) {
+    const { quiz_id, question_id } = req.params;
     const user_id = res.locals.user.id;
 
     try {
       const quiz = await Quiz.findOne({
         where: {
-          id: id_qz,
+          id: quiz_id,
           user_id,
         },
         include: [
@@ -218,7 +218,7 @@ const quizController = {
 
       const answers = await Answer.findAll({
         where: {
-          question_id: id_qt,
+          question_id,
         },
         include: [
           {
@@ -229,7 +229,7 @@ const quizController = {
 
       const question = await Question.findOne({
         where: {
-          id: id_qt,
+          id: question_id,
         },
         include: "level",
       });
@@ -259,10 +259,10 @@ const quizController = {
     }
   },
 
-  async hundleQuestionAdd(req, res, next) {
+  async hundleNewQuestion(req, res, next) {
     const { description, anecdote, wiki, level, answers, goodAnswer } =
       req.body;
-    const quiz_id = req.params.id;
+    const { quiz_id } = req.params;
 
     try {
       if (!description) {
@@ -303,7 +303,7 @@ const quizController = {
         });
       }
 
-      res.redirect(`/profile/quiz/${quiz_id}/questions`);
+      res.redirect(`/profile/quizs/${quiz_id}/questions`);
     } catch (error) {
       console.error(error);
       res.status(500).send(error.message);
@@ -312,24 +312,24 @@ const quizController = {
   },
 
   async hundleAnswerDelete(req, res, next) {
-    const { id_qz, id_qt } = req.params;
+    const { quiz_id, question_id } = req.params;
 
     try {
       const answer = await Answer.findByPk({
         where: {
-          question_id: id_qt,
+          question_id,
         },
       });
 
       if (!answer) {
-        return res.render(`/profile/quiz/${id_qz}/question/${id_qt}/edit`, {
+        return res.render(`profile/questionEdit`, {
           error: "failure",
         });
       }
 
       await answer.destroy();
 
-      res.redirect(`/profile/quiz/${id_qz}/question/${id_qt}/edit`);
+      res.redirect(`/profile/quizs/${quiz_id}/questions/${question_id}`);
     } catch (error) {
       console.error(error);
       res.status(500).send(error.message);

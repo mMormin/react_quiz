@@ -15,7 +15,7 @@
     </nav>
   </div>
 
-  <form class="p-5" action="/profile/quizs?quiz_id=/<%= quiz.id %>/question" method="POST">
+  <form class="p-5" action="/profile/quizs/<%= quiz.id %>/questions" method="POST">
     <h2>Ajout d'une question</h2>
     <% if (locals.error) { %> <%- include("../partials/error") %> <% } %>
     <label class="form-label h4 mb-3" for="description">Titre</label>
