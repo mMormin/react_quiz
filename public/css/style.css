@@ -33,13 +33,28 @@ form.p-5 {
   border: 2px solid green;
 }
 
-.goodAnswer {
+.goodAnswer, .deleteAnswer {
   cursor: pointer;
   position: absolute;
-  top: 51px;
-  right: 6px;
+  top: 4px;
   font-size: 28px !important;
+  color: grey;
+}
+
+.goodAnswer {
+  right: 6px;
+}
+
+.validated, .goodAnswer:hover {
   color: green;
+}
+
+.deleteAnswer {
+  right: 38px;
+} 
+
+.deleteAnswer:hover {
+  color: #ed1313;
 }
 
 .question__header {

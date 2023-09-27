@@ -56,7 +56,7 @@ const quizController = {
         );
       }
 
-      res.redirect("/profile/quizzes");
+      res.redirect("/profile/quizs");
     } catch (error) {
       console.error(error);
       res.status(500).send(error.message);
@@ -136,54 +136,16 @@ const quizController = {
         return res.render("status", { status: "404" });
       }
 
-      // const questions = await Question.findAll({
-      //   where: {
-      //     quiz_id: quiz.id,
-      //   },
-      // });
-
-      // if (!questions) {
-      //   await quiz.destroy();
-      //   res.redirect("/profile/quizzes");
-      // }
-
-      // for (const question of questions) {
-      //   await Answer.destroy({
-      //     where: {
-      //       question_id: question.id,
-      //     },
-      //   });
-      // }
-
-      // await Question.destroy({
-      //   where: {
-      //     quiz_id: quiz.id,
-      //   },
-      // });
+      await sequelize.query(
+        `DELETE FROM quiz_has_tag WHERE quiz_id = ${quiz.id}`,
+        {
+          type: QueryTypes.DELETE,
+        }
+      );
 
       await quiz.destroy();
 
-      // quiz_has_tag destroy
-
-      
-      // await sequelize.transaction(async (t) => {
-      //   await sequelize.query(
-      //     `ALTER TABLE "answer" DROP CONSTRAINT answer_question_id_fkey`,
-      //     { type: QueryTypes.RAW, transaction: t }
-      //   );
-
-      //   await sequelize.query(
-      //     `DELETE FROM quiz WHERE id = ${id}`,
-      //     { type: QueryTypes.DELETE, transaction: t }
-      //   );
-
-      //   await sequelize.query(
-      //     `ALTER TABLE "answer" ADD CONSTRAINT answer_question_id_fkey FOREIGN KEY ("question_id") REFERENCES "answer"("id") ON DELETE SET NULL`,
-      //     { type: QueryTypes.RAW, transaction: t }
-      //   );
-      // });
-
-      res.redirect("/profile/quizzes");
+      res.redirect("/profile/quizs");
     } catch (error) {
       console.error(error);
       res.status(500).send(error.message);

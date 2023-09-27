@@ -1,16 +1,28 @@
 $(document).ready(function () {
   const editButton = $(".button--edit");
   const answerAddButton = $(".button--add-answer");
-  const disabledInputs = $("input.disabled");
+  const inputsWithDisabledClass = $("input.disabled");
   let i = 0;
-  
-  if(disabledInputs) {
-    disabledInputs.prop("disabled", true);
+
+  //
+  // GLOBAL
+  //
+  // Disable inputs's prop by class
+  if (inputsWithDisabledClass) {
+    inputsWithDisabledClass.prop("disabled", true);
   }
-  
+
+  //
+  // PROFILE.EJS && QUESTIONEDIT.EJS
+  //
+  // Allow inputs edition On Click
   editButton.click(function (e) {
     e.preventDefault();
-    disabledInputs.prop("disabled", false, !disabledInputs.prop("disabled", true));
+    disabledInputs.prop(
+      "disabled",
+      false,
+      !disabledInputs.prop("disabled", true)
+    );
     $(this).prop("disabled", true, !$(this).prop("disabled", false));
     disabledInputs.val("");
     $(".tags__list").hide();
@@ -18,26 +30,52 @@ $(document).ready(function () {
     $("input.hidden").show();
     $(this).hide();
   });
-  
+
+  //
+  // QUESTIONADD.EJS
+  //
+  // Answer Addition On Click
   answerAddButton.click(function (e) {
     e.preventDefault();
     i++;
     $(".hidden").show();
     newInput =
       `<div class="form-group">` +
-      `<label class="form-label h4 mb-3" for="answer${i}">Réponse ${i}</label>` +
-      `<input class="form-control mb-4" name="answers" type="text" id="answer${i}" placeholder="Je suis la réponse ${i}" required />` +
+      `<input class="form-control mb-4" name="answer" type="text" id="answer${i}" placeholder="Oui" required />` +
       `<span class="deleteAnswer material-icons">delete</span>` +
       `<span class="goodAnswer material-icons">done</span>` +
       `</div>`;
-      $(".answers__wrapper").append(newInput);
+    $(".answers__wrapper").append(newInput);
   });
 
+  // Good Answer Definition On Click
   $(document).on("click", ".goodAnswer", function (e) {
     e.preventDefault();
-    $(this).closest("input").attr("name", "goodAnswer").addClass("goodInput");
+    const allInputsParents = $(".form-group");
+    const allInputs = $(".form-control");
+    const thisParent = $(this).parent();
+    let thisInput = $(this).siblings("input");
+
+    if (
+      allInputsParents.hasClass("validate_answer") &&
+      !thisParent.hasClass("validate_answer")
+    ) {
+      // Good answer is already defined
+      allInputsParents.removeClass("validate_answer");
+      allInputs.attr("name", "answers").removeClass("goodInput");
+      thisParent.addClass("validate_answer");
+      thisInput.attr("name", "goodAnswer").addClass("goodInput");
+    } else if (thisInput.hasClass("goodInput")) {
+      // The Good answer is $(this) Good answer
+      thisInput.removeClass("goodInput").attr("name", "answers");
+    } else {
+      // Good answer Initialization
+      thisInput.attr("name", "goodAnswer").addClass("goodInput");
+      thisInput.parent().addClass("validate_answer");
+    }
   });
 
+  // Answer Deletion On Click
   $(document).on("click", ".deleteAnswer", function (e) {
     e.preventDefault();
     $(this).parent().remove();
