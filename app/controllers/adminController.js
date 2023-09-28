@@ -4,7 +4,7 @@ const sequelize = require("../db.js");
 
 const adminController = {
   async userPage(_, res, next) {
-    const modalData = { name: "user", uc: "User" };
+    const modalData = { name: "users", uc: "User" };
 
     try {
       const users = await User.findAll({
@@ -108,7 +108,7 @@ const adminController = {
   },
 
   async quizPage(_, res, next) {
-    const modalData = { name: "quiz", uc: "Quiz" };
+    const modalData = { name: "quizs", uc: "Quiz" };
 
     try {
       const quizzes = await Quiz.findAll({
@@ -218,7 +218,7 @@ const adminController = {
   },
 
   async tagPage(req, res) {
-    const modalData = { name: "tag", uc: "Tag" };
+    const modalData = { name: "tags", uc: "Tag" };
 
     try {
       const tags = await Tag.findAll({

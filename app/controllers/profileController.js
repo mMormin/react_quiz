@@ -92,7 +92,7 @@ const profileController = {
         return res.render("status", { status: "404" });
       }
 
-      return res.render("profile/oneQuiz", { quiz, tags });
+      return res.render("profile/quiz", { quiz, tags });
     } catch (error) {
       console.error(error);
       res.status(500).send(error.message);

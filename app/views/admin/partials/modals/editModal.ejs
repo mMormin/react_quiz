@@ -1,7 +1,7 @@
 <div id="edit<%= data.uc %>Modal<%= id %>" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
-      <form action="/admin/edit/<%= data.name %>/<%= id %>" method="POST">
+      <form action="/admin/<%= data.name %>/<%= id %>/edit" method="POST">
         <div class="modal-header">
           <h4 class="modal-title">Edit <%= data.uc %></h4>
           <button
@@ -14,7 +14,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <% switch(data.name) { case "user": %>
+          <% switch(data.name) { case "users": %>
           <div class="form-group">
             <label for="editFirstname">Prénom</label>
             <input
@@ -55,7 +55,7 @@
               class="form-control"
             />
           </div>
-          <% break; case "quiz": %>
+          <% break; case "quizs": %>
           <div class="form-group">
             <label for="editTitle">Titre</label>
             <input
@@ -76,7 +76,7 @@
               class="form-control"
             />
           </div>
-          <% break; case "tag": %>
+          <% break; case "tags": %>
           <div class="form-group">
             <label for="editTag">Nom</label>
             <input

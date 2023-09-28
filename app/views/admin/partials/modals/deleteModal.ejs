@@ -1,7 +1,7 @@
 <div id="delete<%= data.uc %>Modal<%= id %>" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
-      <form action="/admin/delete/<%= data.name %>/<%= id %>" method="POST">
+      <form action="/admin/<%= data.name %>/<%= id %>/delete" method="POST">
         <div class="modal-header">
           <h4 class="modal-title">Delete <%= data.uc %></h4>
           <button

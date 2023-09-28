@@ -24,10 +24,10 @@ const quizController = {
       }
 
       if (!quiz.questionsList) {
-        return res.render("profile/questions", { quiz, error: "noQuestions" });
+        return res.render("profile/questionList", { quiz, error: "noQuestions" });
       }
 
-      return res.render("profile/questions", { quiz });
+      return res.render("profile/questionsList", { quiz });
     } catch (error) {
       console.error(error);
       res.status(500).send(error.message);
