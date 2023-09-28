@@ -5,38 +5,32 @@ $(document).ready(function () {
   let i = 0;
 
   //
-  // GLOBAL
-  //
-  // Disable inputs's prop by class
-  if (inputsWithDisabledClass) {
-    inputsWithDisabledClass.prop("disabled", true);
+  // Toggle inputs Function
+  function toggleInputs() {
+    inputsWithDisabledClass.prop("disabled", function (_, value) {
+      return !value;
+    });
   }
 
   //
   // PROFILE.EJS && QUESTIONEDIT.EJS
-  //
-  // Allow inputs edition On Click
-  editButton.click(function (e) {
-    e.preventDefault();
-    inputsWithDisabledClass.prop(
-      "disabled",
-      false,
-      !inputsWithDisabledClass.prop("disabled", true)
-    );
-    $(this).prop("disabled", true, !$(this).prop("disabled", false));
+  // Edit inputs Function
+  function handleEditClick() {
+    toggleInputs();
+    editButton.prop("disabled", function (_, value) {
+      return !value;
+    });
     inputsWithDisabledClass.val("");
     $(".tags__list").hide();
     $(".tags").show();
     $("input.hidden").show();
-    $(this).hide();
-  });
+    editButton.hide();
+  }
 
   //
   // QUESTIONADD.EJS
-  //
-  // Answer Addition On Click
-  answerAddButton.click(function (e) {
-    e.preventDefault();
+  // Answer addition Function
+  function handleAnswerAddClick() {
     i++;
     $(".hidden").show();
     newInput =
@@ -46,11 +40,10 @@ $(document).ready(function () {
       `<span class="goodAnswer material-icons">done</span>` +
       `</div>`;
     $(".answers__wrapper").append(newInput);
-  });
+  }
 
-  // Good Answer Definition On Click
-  $(document).on("click", ".goodAnswer", function (e) {
-    e.preventDefault();
+  // Good Answer addition Function
+  function handleGoodAnswerClick() {
     const allInputsParents = $(".form-group");
     const allInputs = $(".form-control");
     const thisParent = $(this).parent();
@@ -73,11 +66,19 @@ $(document).ready(function () {
       thisInput.attr("name", "goodAnswer").addClass("goodInput");
       thisInput.parent().addClass("validate_answer");
     }
-  });
+  }
 
-  // Answer Deletion On Click
-  $(document).on("click", ".deleteAnswer", function (e) {
-    e.preventDefault();
+  // Answer deletion Function
+  function handleDeleteAnswerClick() {
     $(this).parent().remove();
-  });
+  }
+
+  // Events Listener
+  editButton.click(handleEditClick);
+  answerAddButton.click(handleAnswerAddClick);
+  $(document).on("click", ".goodAnswer", handleGoodAnswerClick);
+  $(document).on("click", ".deleteAnswer", handleDeleteAnswerClick);
+
+  // Disable inputs when page is fully loaded
+  toggleInputs();
 });
