@@ -1,49 +1,49 @@
+const { User } = require("../models");
 const validator = require("email-validator");
 const bcrypt = require("bcrypt");
-const { User } = require("../models/assoc");
 
 const userController = {
-  signUpPage: (req, res) => {
+  signUpPage: (_, res) => {
     res.render("signup");
   },
 
-  loginPage: (req, res) => {
+  loginPage: (_, res) => {
     res.render("login");
   },
 
-  profilePage: (req, res) => {
+  profilePage: (_, res) => {
     res.render("profile");
   },
 
   async hundleNewUser(req, res, next) {
-    let error;
-
-    const { firstname, lastname, email, password, confirmation } = req.body;
-    const passwordRegex = new RegExp(
-      /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^*-]).{8,}$/
-    );
-
-    if (!firstname || !lastname || !email || !password) {
-      error = "signup";
-      return res.render("signup", { error });
-    }
-
-    if (!validator.validate(email)) {
-      error = "email";
-      return res.render("signup", { error });
-    }
-
-    if (passwordRegex.test(password) == false) {
-      error = "password";
-      return res.render("signup", { error });
-    }
-
-    if (password !== confirmation) {
-      error = "matchingPassword";
-      return res.render("signup", { error });
-    }
-
     try {
+      let error;
+      const { firstname, lastname, email, password, confirmation } = req.body;
+
+      const passwordRegex = new RegExp(
+        /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^*-]).{8,}$/
+      );
+
+      if (!firstname || !lastname || !email || !password) {
+        error = "signup";
+        return res.render("signup", { error });
+      }
+
+      if (!validator.validate(email)) {
+        error = "email";
+        return res.render("signup", { error });
+      }
+
+      if (passwordRegex.test(password) == false) {
+        error = "password";
+        return res.render("signup", { error });
+      }
+
+      if (password !== confirmation) {
+        error = "matchingPassword";
+        return res.render("signup", { error });
+      }
+
       const userExist = await User.findOne({
         where: {
           email,
@@ -66,22 +66,22 @@ const userController = {
 
       await newUser.save();
 
-      res.redirect("/login");
+      return res.redirect("/login");
     } catch (error) {
       console.error(error);
       res.status(500).send(error.message);
       next();
     }
-
   },
 
   async hundleLogin(req, res) {
-    const { email, password } = req.body;
-
     try {
+      const { email, password } = req.body;
+
       const userFound = await User.findOne({
         where: { email },
       });
+      
       const validPassword = bcrypt.compareSync(password, userFound.password);
 
       if (!userFound || !validPassword) {
@@ -93,7 +93,7 @@ const userController = {
       req.session.user = userFound;
       delete req.session.user.password;
 
-      res.redirect("/");
+      return res.redirect("/");
     } catch (error) {
       console.error(error);
       res.status(500).send(error.message);

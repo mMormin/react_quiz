@@ -1,21 +1,19 @@
-const Tag = require("../models/tag");
-const Quiz = require("../models/quiz");
-
+const { Tag, Quiz } = require("../models");
 
 const mainController = {
-  async homePage(req, res, next) {
+  async homePage(_, res, next) {
     try {
-      const quizzesList = await Quiz.findAll({
+      const quizzes = await Quiz.findAll({
         include: ["author", "tagsList"],
         order: [["created_at", "DESC"]],
       });
 
-      if (!quizzesList.length) {
+      if (!quizzes.length) {
         const error = "noQuizzes";
         return res.render("home", { quizzes, error });
       }
 
-      res.render("home", { quizzes: quizzesList });
+      return res.render("home", { quizzes });
     } catch (error) {
       console.error(error);
       res.status(500).send(error.message);
@@ -24,9 +22,9 @@ const mainController = {
   },
 
   async quizPage(req, res, next) {
-    const { id } = req.params;
-
     try {
+      const { id } = req.params;
+
       const quizById = await Quiz.findByPk(id, {
         include: [
           "author",
@@ -38,11 +36,11 @@ const mainController = {
         ],
       });
 
-      if (!quizById.length) {
+      if (!quizById) {
         return res.status(404).render("status", { status: "404" });
       }
 
-      res.render("quiz", { quiz: quizById });
+      return res.render("quiz", { quiz: quizById });
     } catch (error) {
       console.error(error);
       res.status(500).send(error.message);
@@ -50,7 +48,7 @@ const mainController = {
     }
   },
 
-  async tagPage(req, res, next) {
+  async tagPage(_, res, next) {
     try {
       const tags = await Tag.findAll({
         include: ["quizzesList"],
@@ -58,10 +56,10 @@ const mainController = {
 
       if (!tags.length) {
         const error = "noTags";
-        res.render("tags", { tags, error });
+        return res.render("tags", { tags, error });
       }
 
-      res.render("tags", { tags });
+      return res.render("tags", { tags });
     } catch (error) {
       console.error(error);
       res.status(500).send(error.message);
@@ -69,7 +67,7 @@ const mainController = {
     }
   },
 
-  errorPage: (req, res) => {
+  errorPage: (_, res) => {
     res.status(404).render("status", { status: "404" });
   },
 };

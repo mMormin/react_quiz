@@ -5,6 +5,7 @@ const userController = require("./controllers/userController");
 const adminController = require("./controllers/adminController");
 const profileController = require("./controllers/profileController");
 const quizController = require("./controllers/quizController");
+const questionController = require("./controllers/questionController");
 const adminMiddleware = require("./middlewares/memberMdw");
 const memberMiddleware = require("./middlewares/memberMdw");
 
@@ -37,11 +38,11 @@ router.post("/profile/quizs/:id", memberMiddleware, quizController.hundleQuizUpd
 router.post("/profile/quizs/:id/delete", memberMiddleware, quizController.hundleQuizDelete);
 
 // Profile Questions
-router.get("/profile/quizs/:id/questions", memberMiddleware, quizController.questionsPage);
-router.get("/profile/quizs/:quiz_id/questions/:question_id", memberMiddleware, quizController.questionPage);
-router.get("/profile/quizs/:id/question", memberMiddleware, quizController.newQuestionPage);
-router.post("/profile/quizs/:quiz_id/questions", memberMiddleware, quizController.hundleNewQuestion);
-router.post("/profile/quizs/:quiz_id/questions/:question_id/delete", memberMiddleware, quizController.hundleAnswerDelete);
+router.get("/profile/quizs/:quiz_id/questions", memberMiddleware, questionController.questionsPage);
+router.get("/profile/quizs/:quiz_id/questions/add", memberMiddleware, questionController.newQuestionPage);
+router.get("/profile/quizs/:quiz_id/questions/:question_id", memberMiddleware, questionController.questionPage);
+router.post("/profile/quizs/:quiz_id/questions", memberMiddleware, questionController.hundleNewQuestion);
+router.post("/profile/quizs/:quiz_id/questions/:question_id/delete", memberMiddleware, questionController.hundleAnswerDelete);
 
 
 // Admin

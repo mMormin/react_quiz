@@ -1,17 +1,15 @@
-const Quiz = require("../models/quiz");
-const User = require("../models/user");
-const Tag = require("../models/tag");
+const { Quiz, User, Tag } = require("../models");
 
 const profileController = {
-  profilePage: (req, res) => {
+  profilePage: (_, res) => {
     res.render("profile/profile");
   },
 
   async hundleProfileUpdate(req, res, next) {
-    const emailParam = res.locals.user.email;
-    let { firstname, lastname, email } = req.body;
-
     try {
+      const emailParam = res.locals.user.email;
+      let { firstname, lastname, email } = req.body;
+
       const user = await User.findOne({
         where: {
           email: emailParam,
@@ -49,9 +47,9 @@ const profileController = {
   },
 
   async quizzesPage(req, res, next) {
-    const user_id = res.locals.user.id;
-
     try {
+      const user_id = res.locals.user.id;
+
       const quizzes = await Quiz.findAll({
         where: {
           user_id,
@@ -67,7 +65,7 @@ const profileController = {
         });
       }
 
-      res.render("profile/quizzesList", { quizzes });
+      return res.render("profile/quizzesList", { quizzes });
     } catch (error) {
       console.error(error);
       res.status(500).send(error.message);
@@ -76,10 +74,10 @@ const profileController = {
   },
 
   async quizPage(req, res, next) {
-    const { id } = req.params;
-    const user_id = res.locals.user.id;
-
     try {
+      const { id } = req.params;
+      const user_id = res.locals.user.id;
+
       const quiz = await Quiz.findOne({
         where: {
           id,
@@ -93,9 +91,8 @@ const profileController = {
       if (!quiz) {
         return res.render("status", { status: "404" });
       }
-      
 
-      res.render("profile/oneQuiz", { quiz, tags });
+      return res.render("profile/oneQuiz", { quiz, tags });
     } catch (error) {
       console.error(error);
       res.status(500).send(error.message);

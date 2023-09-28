@@ -1,11 +1,9 @@
-const Quiz = require("../models/quiz");
-const Tag = require("../models/tag");
-const User = require("../models/user");
+const { Quiz, Tag, User } = require("../models");
 const { QueryTypes } = require("sequelize");
 const sequelize = require("../db.js");
 
 const adminController = {
-  async userPage(req, res, next) {
+  async userPage(_, res, next) {
     const modalData = { name: "user", uc: "User" };
 
     try {
@@ -109,7 +107,7 @@ const adminController = {
     }
   },
 
-  async quizPage(req, res, next) {
+  async quizPage(_, res, next) {
     const modalData = { name: "quiz", uc: "Quiz" };
 
     try {
@@ -194,17 +192,17 @@ const adminController = {
           { type: QueryTypes.RAW, transaction: t }
         );
 
-        await sequelize.query(
-          `DELETE FROM quiz WHERE id = ${id}`,
-          { type: QueryTypes.DELETE, transaction: t }
-        );
+        await sequelize.query(`DELETE FROM quiz WHERE id = ${id}`, {
+          type: QueryTypes.DELETE,
+          transaction: t,
+        });
 
         await sequelize.query(
           `ALTER TABLE "answer" ADD CONSTRAINT answer_question_id_fkey FOREIGN KEY ("question_id") REFERENCES "answer"("id") ON DELETE SET NULL`,
           { type: QueryTypes.RAW, transaction: t }
         );
       });
-      
+
       // const quiz = await Quiz.findByPk(id);
 
       // if (quiz) {

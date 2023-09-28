@@ -18,13 +18,13 @@ $(document).ready(function () {
   // Allow inputs edition On Click
   editButton.click(function (e) {
     e.preventDefault();
-    disabledInputs.prop(
+    inputsWithDisabledClass.prop(
       "disabled",
       false,
-      !disabledInputs.prop("disabled", true)
+      !inputsWithDisabledClass.prop("disabled", true)
     );
     $(this).prop("disabled", true, !$(this).prop("disabled", false));
-    disabledInputs.val("");
+    inputsWithDisabledClass.val("");
     $(".tags__list").hide();
     $(".tags").show();
     $("input.hidden").show();
@@ -41,7 +41,7 @@ $(document).ready(function () {
     $(".hidden").show();
     newInput =
       `<div class="form-group">` +
-      `<input class="form-control mb-4" name="answer" type="text" id="answer${i}" placeholder="Oui" required />` +
+      `<input class="form-control mb-4" name="answers" type="text" id="answer${i}" placeholder="Oui" required />` +
       `<span class="deleteAnswer material-icons">delete</span>` +
       `<span class="goodAnswer material-icons">done</span>` +
       `</div>`;
