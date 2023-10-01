@@ -4,7 +4,8 @@
   "description": "Quiz application using Node, Express and Sequelize !",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon",
+    "start": "node .",
+    "dev": "npx nodemon",
     "db:create": "psql -U oquiz -d oquiz -f database/create_tables.sql",
     "db:populate": "psql -U oquiz -d oquiz -f database/populate_tables.sql",
     "db:rebuild": "npm run db:create && npm run db:populate"

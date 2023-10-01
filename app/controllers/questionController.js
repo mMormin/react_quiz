@@ -1,6 +1,6 @@
 const { Quiz, Level, Question, Answer } = require("../models");
 
-const quizController = {
+const questionController = {
   async questionsPage(req, res, next) {
     try {
       const { quiz_id } = req.params;
@@ -126,7 +126,7 @@ const quizController = {
     }
   },
 
-  async hundleNewQuestion(req, res, next) {
+  async handleNewQuestion(req, res, next) {
     try {
       const { description, anecdote, wiki, level, answers, goodAnswer } =
         req.body;
@@ -172,9 +172,10 @@ const quizController = {
       await newGoodAnswer.save();
 
       for (let i = 0; i < answers.length; i++) {
-        const answer = answers[i];
+        let description = answers[i];
+
         await Answer.create({
-          description: answer,
+          description,
           question_id: newQuestion.id,
         });
       }
@@ -186,32 +187,6 @@ const quizController = {
       next();
     }
   },
-
-  async hundleAnswerDelete(req, res, next) {
-    const { quiz_id, question_id } = req.params;
-
-    try {
-      const answer = await Answer.findByPk({
-        where: {
-          question_id,
-        },
-      });
-
-      if (!answer) {
-        return res.render(`profile/questionEdit`, {
-          error: "failure",
-        });
-      }
-
-      await answer.destroy();
-
-      return res.redirect(`/profile/quizs/${quiz_id}/questions/${question_id}`);
-    } catch (error) {
-      console.error(error);
-      res.status(500).send(error.message);
-      next();
-    }
-  },
 };
 
-module.exports = quizController;
+module.exports = questionController;

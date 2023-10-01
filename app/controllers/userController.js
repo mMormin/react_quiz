@@ -15,7 +15,7 @@ const userController = {
     res.render("profile");
   },
 
-  async hundleNewUser(req, res, next) {
+  async handleNewUser(req, res, next) {
     try {
       let error;
       const { firstname, lastname, email, password, confirmation } = req.body;
@@ -74,7 +74,7 @@ const userController = {
     }
   },
 
-  async hundleLogin(req, res) {
+  async handleLogin(req, res) {
     try {
       const { email, password } = req.body;
 
@@ -101,7 +101,7 @@ const userController = {
     }
   },
 
-  hundleLogout(req, res) {
+  handleLogout(req, res) {
     req.session.user = null;
     res.redirect("/");
   },

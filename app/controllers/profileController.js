@@ -5,7 +5,7 @@ const profileController = {
     res.render("profile/profile");
   },
 
-  async hundleProfileUpdate(req, res, next) {
+  async handleProfileUpdate(req, res, next) {
     try {
       const emailParam = res.locals.user.email;
       let { firstname, lastname, email } = req.body;

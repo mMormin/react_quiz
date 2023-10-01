@@ -15,7 +15,7 @@ const quizController = {
     }
   },
 
-  async hundleNewQuiz(req, res, next) {
+  async handleNewQuiz(req, res, next) {
     try {
       const { title, description, tag } = req.body;
       const user_id = res.locals.user.id;
@@ -61,7 +61,7 @@ const quizController = {
     }
   },
 
-  async hundleQuizUpdate(req, res, next) {
+  async handleQuizUpdate(req, res, next) {
     try {
       const { id } = req.params;
       let { title, description, tag } = req.body;
@@ -116,7 +116,7 @@ const quizController = {
     }
   },
 
-  async hundleQuizDelete(req, res, next) {
+  async handleQuizDelete(req, res, next) {
     try {
       const { id } = req.params;
       const user_id = res.locals.user.id;

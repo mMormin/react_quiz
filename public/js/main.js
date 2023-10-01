@@ -30,12 +30,13 @@ $(document).ready(function () {
   //
   // QUESTIONADD.EJS
   // Answer addition Function
-  function handleAnswerAddClick() {
+  function handleAnswerAddClick(e) {
+    e.preventDefault();
     i++;
     $(".hidden").show();
     newInput =
       `<div class="form-group">` +
-      `<input class="form-control mb-4" name="answers" type="text" id="answer${i}" placeholder="Oui" required />` +
+      `<input class="form-control mb-4" name="answers" type="text" id="answer-${i}" placeholder="Oui" required />` +
       `<span class="deleteAnswer material-icons">delete</span>` +
       `<span class="goodAnswer material-icons">done</span>` +
       `</div>`;

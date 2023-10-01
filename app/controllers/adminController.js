@@ -20,7 +20,7 @@ const adminController = {
     }
   },
 
-  async hundleUserAdd(req, res, next) {
+  async handleUserAdd(req, res, next) {
     const { firstname, lastname, email, password } = req.body;
 
     try {
@@ -46,7 +46,7 @@ const adminController = {
     }
   },
 
-  async hundleUserEdit(req, res, next) {
+  async handleUserEdit(req, res, next) {
     const { id } = req.params;
     let { editFirstname, editLastname, editEmail, editPassword } = req.body;
 
@@ -87,7 +87,7 @@ const adminController = {
     }
   },
 
-  async hundleUserDelete(req, res, next) {
+  async handleUserDelete(req, res, next) {
     const { id } = req.params;
 
     console.log(id);
@@ -124,7 +124,7 @@ const adminController = {
     }
   },
 
-  async hundleQuizAdd(req, res, next) {
+  async handleQuizAdd(req, res, next) {
     const { title, description } = req.body;
 
     try {
@@ -148,7 +148,7 @@ const adminController = {
     }
   },
 
-  async hundleQuizEdit(req, res, next) {
+  async handleQuizEdit(req, res, next) {
     const { id } = req.params;
     let { editTitle, editDescription } = req.body;
 
@@ -182,7 +182,7 @@ const adminController = {
     }
   },
 
-  async hundleQuizDelete(req, res, next) {
+  async handleQuizDelete(req, res, next) {
     const { id } = req.params;
 
     try {
@@ -234,7 +234,7 @@ const adminController = {
     }
   },
 
-  async hundleTagAdd(req, res, next) {
+  async handleTagAdd(req, res, next) {
     const { name } = req.body;
 
     try {
@@ -256,7 +256,7 @@ const adminController = {
     }
   },
 
-  async hundleTagEdit(req, res, next) {
+  async handleTagEdit(req, res, next) {
     const { id } = req.params;
     let { editName } = req.body;
 
@@ -289,7 +289,7 @@ const adminController = {
     }
   },
 
-  async hundleTagDelete(req, res, next) {
+  async handleTagDelete(req, res, next) {
     const { id } = req.params;
 
     try {
